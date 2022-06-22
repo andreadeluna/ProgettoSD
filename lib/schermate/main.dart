@@ -27,6 +27,6 @@ void main() async {
   }
 
   // Inizializzazione schermata iniziale dell'app
-  runApp(SplashScreen());
+  runApp(App());
 
 }

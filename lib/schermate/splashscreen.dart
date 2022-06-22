@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
@@ -8,21 +9,20 @@ class App extends StatelessWidget {
   // Definizione schermata iniziale
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
-    /*return MultiProvider(
+    return MultiProvider(
       providers: [
         Provider<Autenticazione>(
           create: (_) => Autenticazione(),
         ),
       ],
       child: MaterialApp(
-        title: 'Progetto ASPDM',
+        title: 'Progetto Sistemi Distribuiti',
         initialRoute: '/',
         routes: {
           '/': (context) => const SplashScreen(),
         },
       ),
-    );*/
+    );
   }
 }
 
@@ -43,8 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 2),
           () {
         // Apertura schermata di autenticazione o dell'homepage
-        /*Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Wrapper()));*/
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Wrapper()));
       },
     );
   }
