@@ -1,33 +1,32 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:prova_dapp/splashscreen.dart';
+import 'splashscreen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+// Punto di inizio dell'applicazione
+void main() async {
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  WidgetsFlutterBinding.ensureInitialized();
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SplashScreen(),
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.deepPurple,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.deepPurple)
-              )
-          ),
-          appBarTheme: AppBarTheme(
-            elevation: 0,
-          )
+  // Inizializzazione Firebase
+  try{
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyCRqNRhr9DUGlYKO_JjrYO5BVW3pe1lCEs",
+        appId: "1:443473479670:web:71bbc28a798d20832069d7",
+        messagingSenderId: "443473479670",
+        projectId: "letsvote-2407c",
       ),
-
     );
   }
+  catch(e){
+    Scaffold(
+      body: Container(
+        child: Text('$e'),
+      ),
+    );
+  }
+
+  // Inizializzazione schermata iniziale dell'app
+  runApp(SplashScreen());
+
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "443473479670",
+    "project_id": "letsvote-2407c",
+    "storage_bucket": "letsvote-2407c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443473479670:android:a1cf4f928c2c4a8e2069d7",
+        "android_client_info": {
+          "package_name": "com.andreadeluna.letsvote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443473479670-vu5sdkh4tq05asvbjj5j3hsotln9ukje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXy75slvvI-VIj9VR7bAAcBx3Kb6eM3R0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443473479670-vu5sdkh4tq05asvbjj5j3hsotln9ukje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

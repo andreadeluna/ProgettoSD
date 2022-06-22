@@ -2,9 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// Schermata iniziale: visualizzazione splash screen e indirizzamento
-// alla home se l'utente è già autenticato oppure alla schermata di login
-// se l'utente non è autenticato
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
