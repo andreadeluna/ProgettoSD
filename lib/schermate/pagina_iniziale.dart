@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:progettosd/schermate/login.dart';
+import 'package:progettosd/schermate/registrazione.dart';
 
 // Pagine iniziale: contiene una bottom navigation bar che consente
 // di visualizzare la schermata di login oppure la schermata di registrazione
@@ -43,10 +44,7 @@ class _PaginaInizialeState extends State<PaginaIniziale> {
           switch (indice) {
           // Visualizzazione schermata di registrazione
             case 1:
-              // return const Register();
-              return Scaffold(
-                body: Text('Registrazione'),
-              );
+              return const Register();
 
           // Visualizzazione schermata di login
             case 0:
