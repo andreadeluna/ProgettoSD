@@ -29,6 +29,7 @@ class _RegisterState extends State<Register> {
     // *** Dichiarazione variabili ***
     final TextEditingController nomeController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
+    final TextEditingController walletController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final authService = Provider.of<Autenticazione>(context);
 
@@ -128,7 +129,7 @@ class _RegisterState extends State<Register> {
                                           children: [
                                             Padding(
                                               padding:
-                                              const EdgeInsets.all(8.0),
+                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
                                               child: Row(
                                                 mainAxisAlignment:
                                                 MainAxisAlignment
@@ -159,7 +160,7 @@ class _RegisterState extends State<Register> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.all(8.0),
+                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
@@ -174,7 +175,7 @@ class _RegisterState extends State<Register> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.all(8.0),
+                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
@@ -189,7 +190,23 @@ class _RegisterState extends State<Register> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.all(8.0),
+                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
+                                              child: TextFormField(
+                                                style: const TextStyle(
+                                                    fontSize: 20),
+                                                obscureText: true,
+                                                controller: walletController,
+                                                validator: validazioneWallet,
+                                                decoration:
+                                                const InputDecoration(
+                                                  labelText: "Wallet",
+                                                  icon: Icon(Icons.wallet),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
@@ -334,6 +351,15 @@ String? validazioneEmail(String? formEmail) {
   // Verifica formato email
   if (!regex.hasMatch(formEmail)) {
     return "Formato indirizzo e-mail non valido";
+  }
+
+  return null;
+}
+
+// Validazione campo di inserimento wallet
+String? validazioneWallet(String? formWallet) {
+  if (formWallet == null || formWallet.isEmpty) {
+    return "Il wallet è richiesto";
   }
 
   return null;
