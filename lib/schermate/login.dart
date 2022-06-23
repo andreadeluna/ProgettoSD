@@ -33,11 +33,11 @@ class _LoginState extends State<Login> {
       onWillPop: () async => false,
       child: MaterialApp(
         theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
+          primarySwatch: Colors.deepOrange,
           inputDecorationTheme: const InputDecorationTheme(
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.purple,
+                color: Colors.orange,
               ),
             ),
           ),
@@ -51,9 +51,9 @@ class _LoginState extends State<Login> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 colors: [
-                  Colors.purple[800]!,
-                  Colors.purple[700]!,
-                  Colors.purple[300]!,
+                  Colors.deepOrange[800]!,
+                  Colors.deepOrange[700]!,
+                  Colors.deepOrange[300]!,
                 ],
               ),
             ),
@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
                                 borderRadius: BorderRadius.circular(20),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.purple[100]!,
+                                    color: Colors.deepOrange[100]!,
                                     blurRadius: 20,
                                     offset: const Offset(0, 10),
                                   )
@@ -210,7 +210,7 @@ class _LoginState extends State<Login> {
                                 const EdgeInsets.symmetric(horizontal: 50),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
-                                    color: Colors.purple[900]),
+                                    color: Colors.deepOrange[900]),
                                 child: const Center(
                                   child: Text(
                                     "Login",

@@ -20,10 +20,10 @@ class _PaginaInizialeState extends State<PaginaIniziale> {
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.purple[50],
+        backgroundColor: Colors.deepOrange[50],
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.purple[900],
-        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.deepOrange[900],
+        selectedItemColor: Colors.orange,
         selectedFontSize: 20,
         currentIndex: indice,
         onTap: (index) {
