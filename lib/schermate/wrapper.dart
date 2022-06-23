@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:progettosd/modelli/user.dart';
+import 'package:progettosd/schermate/pagina_iniziale.dart';
 import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
@@ -22,10 +23,7 @@ class Wrapper extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           final User? user = snapshot.data;
           if (user == null) {
-            // return const PaginaIniziale();
-            return Scaffold(
-              body: Text('Vuoto'),
-            );
+            return const PaginaIniziale();
           } else {
             FirebaseFirestore.instance
                 .collection('Utenti')
