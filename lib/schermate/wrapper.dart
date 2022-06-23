@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:progettosd/modelli/user.dart';
+import 'package:progettosd/schermate/home.dart';
 import 'package:progettosd/schermate/pagina_iniziale.dart';
+import 'package:progettosd/schermate/pannello_admin.dart';
 import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
@@ -34,24 +36,17 @@ class Wrapper extends StatelessWidget {
                 // Se l'utente è di tipo admin
                 if (docs.docs[0].get('TipoUtente') == 'Admin') {
                   // Apre il pannello di gestione
-                  /*Navigator.push(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              PannelloAdmin(user.email.toString())));*/
-
-                  return Scaffold(
-                    body: Text('Admin'),
-                  );
+                              PannelloAdmin()));
                 } else {
                   // Apre la homepage
-                  /*Navigator.push(
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Home(user.email.toString())));*/
-                  return Scaffold(
-                    body: Text('Home'),
-                  );
+                          builder: (context) => Home()));
                 }
               },
             );

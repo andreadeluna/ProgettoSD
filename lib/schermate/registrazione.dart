@@ -194,7 +194,6 @@ class _RegisterState extends State<Register> {
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
-                                                obscureText: true,
                                                 controller: walletController,
                                                 validator: validazioneWallet,
                                                 decoration:
@@ -253,7 +252,7 @@ class _RegisterState extends State<Register> {
                                         'Email': emailController.text,
                                         'Nome': nomeController.text,
                                         'TipoUtente': tipoUtente,
-                                        'Eventi': []
+                                        'Wallet': walletController.text
                                       },
                                     );
 
@@ -281,7 +280,7 @@ class _RegisterState extends State<Register> {
                                     // restituita da Firebase
                                     errorMessage = error.message!;
                                   }
-
+                                  print("Registrazione effettuata!");
                                   setState(() {});
                                 }
                               },
