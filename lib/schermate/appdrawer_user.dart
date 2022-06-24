@@ -23,7 +23,7 @@ class AppDrawerUser extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.purple[700],
+              color: Colors.deepOrange[700],
             ),
             child: Container(
               decoration: BoxDecoration(
