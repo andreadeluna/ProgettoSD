@@ -40,7 +40,7 @@ class Wrapper extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              PannelloAdmin()));
+                              PannelloAdmin(user.email.toString())));
                 } else {
                   // Apre la homepage
                   Navigator.push(
