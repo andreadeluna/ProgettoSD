@@ -417,9 +417,7 @@ class _PannelloAdminState extends State<PannelloAdmin> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: OrientationBuilder(builder: (context, orientation) {
-                      if (orientation == Orientation.portrait) {
-                        return Padding(
+                    child: Padding(
                           padding: const EdgeInsets.all(5),
                           child: Container(
                             decoration: BoxDecoration(
@@ -465,116 +463,7 @@ class _PannelloAdminState extends State<PannelloAdmin> {
                               ),
                             ),
                           ),
-                        );
-                      } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.deepOrange[900]!,
-                                style: BorderStyle.solid,
-                                width: 2,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        width: 700,
-                                        child: ListView(
-                                          padding: const EdgeInsets.all(8),
-                                          children: <Widget>[
-                                            Column(
-                                              children: [
-                                                // Visualizzazione eventi
-                                                StreamBuilder<QuerySnapshot>(
-                                                  stream: db
-                                                      .collection('Eventi')
-                                                      .snapshots(),
-                                                  builder: (context, snapshot) {
-                                                    if (snapshot.hasData) {
-                                                      return Column(
-                                                        children: snapshot
-                                                            .data!.docs
-                                                            .map((doc) =>
-                                                                buildItem(doc))
-                                                            .toList(),
-                                                      );
-                                                    } else {
-                                                      return const SizedBox();
-                                                    }
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Container(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        width: 300,
-                                        child: ListView(
-                                          padding: const EdgeInsets.all(8),
-                                          children: <Widget>[
-                                            Column(
-                                              children: [
-                                                // Visualizzazione eventi
-                                                StreamBuilder<QuerySnapshot>(
-                                                  stream: db
-                                                      .collection('Eventi')
-                                                      .where('NomeEvento',
-                                                          isEqualTo:
-                                                              'Concerto al Fuoritema')
-                                                      .snapshots(),
-                                                  builder: (context, snapshot) {
-                                                    if (snapshot.hasData) {
-                                                      return Column(
-                                                        children: snapshot
-                                                            .data!.docs
-                                                            .map((doc) =>
-                                                                buildIscritti(
-                                                                    doc))
-                                                            .toList(),
-                                                      );
-                                                    } else {
-                                                      return const SizedBox();
-                                                    }
-                                                  },
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }
-                    }),
+                        ),
                   ),
                 ],
               ),
