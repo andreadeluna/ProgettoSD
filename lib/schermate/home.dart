@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
                             Positioned(
                               top: -60,
                               child: CircleAvatar(
-                                backgroundColor: Colors.purple[700],
+                                backgroundColor: Colors.deepOrange[700],
                                 radius: 60,
                                 child: const Icon(
                                   Icons.check,
@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
                               const EdgeInsets.symmetric(horizontal: 50),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
-                                  color: Colors.purple[900]),
+                                  color: Colors.deepOrange[900]),
                               child: const Center(
                                 child: Text(
                                   "Chiudi",
@@ -176,7 +176,7 @@ class _HomeState extends State<Home> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: Colors.purple[900]),
+                        color: Colors.deepOrange[900]),
                     child: const Center(
                       child: Text(
                         "Iscriviti",
@@ -206,9 +206,9 @@ class _HomeState extends State<Home> {
         home: Center(
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('Eventi',
+              title: const Text('Votazioni',
                   style: TextStyle(fontSize: 50, color: Colors.white)),
-              backgroundColor: Colors.purple[700],
+              backgroundColor: Colors.deepOrange[700],
             ),
             drawer: AppDrawerUser(email),
             body: Container(
@@ -218,9 +218,9 @@ class _HomeState extends State<Home> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   colors: [
-                    Colors.purple[500]!,
-                    Colors.purple[400]!,
-                    Colors.purple[200]!,
+                    Colors.deepOrange[500]!,
+                    Colors.deepOrange[400]!,
+                    Colors.deepOrange[200]!,
                   ],
                 ),
               ),
@@ -234,7 +234,7 @@ class _HomeState extends State<Home> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                            color: Colors.purple[900]!,
+                            color: Colors.deepOrange[900]!,
                             style: BorderStyle.solid,
                             width: 2,
                           ),
