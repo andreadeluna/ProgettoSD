@@ -46,7 +46,7 @@ class Wrapper extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Home()));
+                          builder: (context) => Home(user.email.toString())));
                 }
               },
             );
