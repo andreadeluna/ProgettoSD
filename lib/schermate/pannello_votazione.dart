@@ -8,18 +8,18 @@ import 'package:progettosd/servizi/funzioni.dart';
 import 'package:web3dart/web3dart.dart';
 import '../utili/costanti.dart';
 
-class PannelloAdmin extends StatefulWidget {
+class PannelloVotazione extends StatefulWidget {
   // *** Dichiarazione variabili ***
   String email;
 
-  PannelloAdmin(this.email, {Key? key}) : super(key: key);
+  PannelloVotazione(this.email, {Key? key}) : super(key: key);
 
   @override
-  _PannelloAdminState createState() => _PannelloAdminState(email);
+  _PannelloVotazioneState createState() => _PannelloVotazioneState(email);
 }
 
 // Definizione pannello admin
-class _PannelloAdminState extends State<PannelloAdmin> {
+class _PannelloVotazioneState extends State<PannelloVotazione> {
   // *** Dichiarazione variabili ***
   late String id;
   String email;
@@ -30,9 +30,9 @@ class _PannelloAdminState extends State<PannelloAdmin> {
 
   Client? httpClient;
   Web3Client? ethClient;
-  TextEditingController controller = TextEditingController();
+  TextEditingController votazioneController = TextEditingController();
 
-  _PannelloAdminState(this.email);
+  _PannelloVotazioneState(this.email);
 
   @override
   void initState() {
@@ -120,15 +120,16 @@ class _PannelloAdminState extends State<PannelloAdmin> {
                                   padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     border: Border(
-                                      bottom: BorderSide(
-                                          color: Colors.grey[200]!),
+                                      bottom:
+                                          BorderSide(color: Colors.grey[200]!),
                                     ),
                                   ),
                                   child: Form(
                                     key: _formKey,
                                     child: Center(
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -138,14 +139,15 @@ class _PannelloAdminState extends State<PannelloAdmin> {
                                                   return 'Inserire nome votazione';
                                                 }
                                               },
-                                              style: const TextStyle(fontSize: 20),
-                                              controller: controller,
+                                              style:
+                                                  const TextStyle(fontSize: 20),
+                                              controller: votazioneController,
                                               decoration: const InputDecoration(
                                                   filled: true,
                                                   labelText:
                                                       'Inserisci il nome della votazione'),
                                               onSaved: (value) =>
-                                              valoreCampo = value!,
+                                                  valoreCampo = value!,
                                             ),
                                           ),
                                         ],
@@ -169,9 +171,23 @@ class _PannelloAdminState extends State<PannelloAdmin> {
                                     ),
                                     child: GestureDetector(
                                       onTap: () async {
-                                        if(controller.text.length > 0){
+                                        if (_formKey.currentState!.validate()) {
+                                          _formKey.currentState!.save();
+                                          DocumentReference ref = await db
+                                              .collection('Votazioni')
+                                              .add({
+                                            'NomeVotazione':
+                                                votazioneController.text
+                                          });
+                                        }
+                                        if (votazioneController.text.length > 0) {
                                           // await startElection(controller.text, ethClient!);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>PannelloCandidati(email)));
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PannelloCandidati(
+                                                          email)));
                                         }
                                       },
                                       child: const Center(

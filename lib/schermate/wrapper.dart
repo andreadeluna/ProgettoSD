@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:progettosd/modelli/user.dart';
 import 'package:progettosd/schermate/home.dart';
 import 'package:progettosd/schermate/pagina_iniziale.dart';
-import 'package:progettosd/schermate/pannello_admin.dart';
+import 'package:progettosd/schermate/pannello_votazione.dart';
 import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +40,7 @@ class Wrapper extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              PannelloAdmin(user.email.toString())));
+                              PannelloVotazione(user.email.toString())));
                 } else {
                   // Apre la homepage
                   Navigator.push(
