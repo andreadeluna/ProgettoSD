@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:progettosd/schermate/appdrawer_admin.dart';
+import 'package:progettosd/servizi/funzioni.dart';
+import 'package:web3dart/web3dart.dart';
 
 // Pannello admin: permette di visualizzare gli eventi creati, visualizzarne
 // i relativi iscritti, eliminarli e crearne di nuovi
 class PannelloCandidati extends StatefulWidget {
   // *** Dichiarazione variabili ***
   String email;
+  final Web3Client ethClient;
+  final String electionName;
 
-  PannelloCandidati(this.email, {Key? key}) : super(key: key);
+  PannelloCandidati(this.email,
+      {Key? key, required this.ethClient, required this.electionName})
+      : super(key: key);
 
   @override
   _PannelloCandidatiState createState() => _PannelloCandidatiState(email);
@@ -56,11 +62,23 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Text(
-                  "${doc.get('NomeEvento')}",
-                  style: const TextStyle(
-                      fontSize: 35, fontWeight: FontWeight.bold),
-                ),
+                FutureBuilder<List>(
+                    future: getCandidatesNum(widget.ethClient),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Text(
+                        snapshot.data![0].toString(),
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }),
+                Text('Total candidates'),
                 const SizedBox(height: 12),
                 Column(
                   //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -154,110 +172,6 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     // Richiesta di conferma eliminazione evento
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  backgroundColor: Colors.grey[50],
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  content: Stack(
-                                    clipBehavior: Clip.none,
-                                    alignment: Alignment.topCenter,
-                                    children: [
-                                      SizedBox(
-                                        height: 150,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              10, 70, 10, 10),
-                                          child: Column(
-                                            children: const [
-                                              Text(
-                                                "Attenzione",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 23),
-                                              ),
-                                              SizedBox(height: 5),
-                                              Text(
-                                                "Vuoi eliminare l'evento?",
-                                                style: TextStyle(fontSize: 18),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: -60,
-                                        child: CircleAvatar(
-                                          backgroundColor:
-                                              Colors.deepOrange[700],
-                                          radius: 60,
-                                          child: const Icon(
-                                            Icons.delete,
-                                            color: Colors.white,
-                                            size: 50,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: const Text('No',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.deepOrangeAccent)),
-                                      onPressed: () {
-                                        Navigator.pop(context, false);
-                                      },
-                                    ),
-                                    TextButton(
-                                      child: const Text('Si',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.deepOrangeAccent)),
-                                      onPressed: () {
-                                        eliminaEvento(doc);
-
-                                        // Toast di avvenuta eliminazione
-                                        Fluttertoast.showToast(
-                                          msg: "Evento eliminato",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.blueGrey,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0,
-                                        );
-
-                                        Navigator.pop(context, false);
-                                      },
-                                    ),
-                                  ],
-                                ));
-                      },
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.deepOrange[900]),
-                        child: const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Text(
-                              "Elimina",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 )
               ],
@@ -268,7 +182,7 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
     );
   }
 
-  Card buildIscritti(DocumentSnapshot doc) {
+  Card buildCandidati(DocumentSnapshot doc) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
@@ -332,13 +246,15 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                             ],
                           ),
                         ),
-                        Builder(builder: (context) {
-                          if ((i + 1) < List.from(doc['Iscritti']).length) {
-                            return const Divider(color: Colors.grey);
-                          } else {
-                            return const SizedBox(height: 1);
-                          }
-                        })
+                        Builder(
+                          builder: (context) {
+                            if ((i + 1) < List.from(doc['Iscritti']).length) {
+                              return const Divider(color: Colors.grey);
+                            } else {
+                              return const SizedBox(height: 1);
+                            }
+                          },
+                        ),
                       ],
                     ),
                   );
@@ -358,7 +274,7 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                       Padding(
                         padding: EdgeInsets.all(10),
                         child: Text(
-                          'Non sono presenti iscritti 😢',
+                          'Non sono presenti candidati 😢',
                           style: TextStyle(fontSize: 21),
                           textAlign: TextAlign.center,
                         ),
@@ -439,24 +355,171 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                           child: ListView(
                             padding: const EdgeInsets.all(8),
                             children: <Widget>[
-                              Column(
-                                children: [
-                                  // Visualizzazione eventi
-                                  StreamBuilder<QuerySnapshot>(
-                                    stream: db.collection('Eventi').snapshots(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return Column(
-                                          children: snapshot.data!.docs
-                                              .map((doc) => buildItem(doc))
-                                              .toList(),
-                                        );
-                                      } else {
-                                        return const SizedBox();
-                                      }
-                                    },
+                              Padding(
+                                padding: const EdgeInsets.all(0),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange[50],
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                      bottomLeft: Radius.circular(30),
+                                      bottomRight: Radius.circular(30),
+                                    ),
                                   ),
-                                ],
+                                  child: Column(
+                                    children: [
+                                      // Visualizzazione candidati
+                                      FutureBuilder<List>(
+                                          future: getCandidatesNum(
+                                              widget.ethClient),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            }
+                                            return Text(
+                                              snapshot.data![0].toString(),
+                                              style: const TextStyle(
+                                                fontSize: 50,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            );
+                                          }),
+                                      const Text(
+                                        'Numero candidati',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      FutureBuilder<List>(
+                                          future:
+                                              getTotalVotes(widget.ethClient),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            }
+                                            return Text(
+                                              snapshot.data![0].toString(),
+                                              style: const TextStyle(
+                                                fontSize: 50,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            );
+                                          }),
+                                      const Text(
+                                        'Voti totali',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 15),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 40),
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  'Risultati votazione',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              FutureBuilder<List>(
+                                future: getCandidatesNum(widget.ethClient),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return Column(
+                                      children: [
+                                        for (int i = 0;
+                                            i < snapshot.data![0].toInt();
+                                            i++)
+                                          FutureBuilder<List>(
+                                              future: candidateInfo(
+                                                  i, widget.ethClient),
+                                              builder:
+                                                  (context, candidatesnapshot) {
+                                                if (candidatesnapshot
+                                                        .connectionState ==
+                                                    ConnectionState.waiting) {
+                                                  return const Center(
+                                                    child: CircularProgressIndicator(),
+                                                  );
+                                                } else if(snapshot.data![0].toInt() == 0){
+                                                  return Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(
+                                                        10),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      children: const [
+                                                        Padding(
+                                                          padding:
+                                                          EdgeInsets.all(
+                                                              10),
+                                                          child: Text(
+                                                            'Non sono presenti candidati 😢',
+                                                            style: TextStyle(
+                                                                fontSize: 21),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }
+                                                else {
+                                                  return ListTile(
+                                                    title: Text(
+                                                      '${i + 1}: ' +
+                                                          candidatesnapshot
+                                                              .data![0][0]
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 25,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    subtitle: Text(
+                                                      'Voti: ' +
+                                                          candidatesnapshot
+                                                              .data![0][1]
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                              })
+                                      ],
+                                    );
+                                  }
+                                },
                               )
                             ],
                           ),
@@ -471,14 +534,6 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
         ),
       ),
     );
-  }
-
-  // Eliminazione evento
-  void eliminaEvento(DocumentSnapshot doc) async {
-    await db.collection('Eventi').doc(doc.id).delete();
-    setState(() {
-      id = 'null';
-    });
   }
 }
 

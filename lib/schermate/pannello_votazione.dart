@@ -181,13 +181,13 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
                                           });
                                         }
                                         if (votazioneController.text.length > 0) {
-                                          // await startElection(controller.text, ethClient!);
+                                          await startElection(votazioneController.text, ethClient!);
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       PannelloCandidati(
-                                                          email)));
+                                                          email, ethClient: ethClient!, electionName: votazioneController.text,)));
                                         }
                                       },
                                       child: const Center(
