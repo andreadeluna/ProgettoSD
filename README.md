@@ -10,7 +10,7 @@ Terzo appello, Sessione Estiva 2021/2022
 
 * [Veronica Michelini](https://github.com/VeronicaMichelini), **Matricola :** 317197 
   
-* [Ani Yeganyan](https://github.com/yeganyan-ani), **Matricola :** 
+* [Ani Yeganyan](https://github.com/yeganyan-ani), **Matricola :** 317348
 
 -----------------------------------------------------
 
@@ -23,6 +23,8 @@ e che quindi una volta implementato non può essere modificato in modo semplice.
 Nello smart contract realizzato per l'applicazione sono presenti:
 * Un amministratore (proprietario dell'elezione), che ha il compito di distribuire il contratto, autorizza gli elettori a votare ed inserisce nuovi candidati alla lista.
 * Degli elettori, che possono votare un candidato una volta che il contratto è stato distribuito.
+
+Uno degli obiettivi principali dell'esecuzione di una votazione tramite blockchain è che è possibile tenere traccia delle azioni compiute dall'uente, quindi la votazione potrà essere effettuata solamente una volta, e non più ripetuta.
 
 -----------------------------------------------------
 
@@ -146,4 +148,147 @@ Questa funzione può essere richiamata solo dal proprietario dello smart contrac
 	<img src="https://user-images.githubusercontent.com/48562858/176996711-00fa2e6f-3afd-46f8-a2ac-fc972462a42f.png" width="600" height="70">
 </p>
 										
+-----------------------------------------------------
+
+## Distribuzione del contratto
+A seguito dello sviluppo del contratto, è stato necessario caricare l'API creata su Alchemy, un client che permette di avere il programma sempre attivo, in modo da poterlo utilizzare in qualsiasi momento, con a supporto la continous integration e una dasboard contenente tutti i dati relativi al funzionamento e all'utilizzo dell'API.
+La buona riuscita dello sviluppo del contratto è visionabile grazie al portale Etherscan, il quale conterrà tutte le informazioni relative allo smart contract stipulato, le quali saranno per l'appunto immutabili. Si può notare l'indirizzo del contratto stipulato, l'indirizzo del Wallet del proprietario del contratto e le commissioni pagate per la buona riuscita dell'operazione.
+
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/44511696/177221165-b05bbf73-4a31-48e6-8dd3-50b235c27e1a.png" width="600" height="300">
+</p>
+
+-----------------------------------------------------
+
+## Casi d'uso ##
+I casi d'uso possono essere suddivisi rispettivamente per tipologia di utente, verranno proposti i più significativi:
+
+### Utente Admin ###
+  * Apertura applicazione
+  * Login
+  * Creazione di una votazione
+  * Aggiunta di uno o più nuovi candidati
+  * Visualizzazione risultati votazione
+  * Logout
+  * Chiusura applicazione
+  
+  ### Utente User ###
+- Primo caso
+  * Apertura applicazione
+  * Login
+  * Inserimento nome votazione
+  * Inserimento indirizzo portafoglio metamask
+  * Visualizzazione lista candidati
+  * Visualizzazione dettagli di un candidato
+  * Votazione di un candidato
+  * Visualizzazione buona riuscita del voto
+  * Logout
+  * Chiusura applicazione
+
+- Secondo caso
+  * Apertura applicazione
+  * Login
+  * Inserimento nome votazione
+  * Inserimento indirizzo portafoglio metamask
+  * Visualizzazione lista candidati
+  * Visualizzazione dettagli di un candidato
+  * Votazione di un candidato
+  * Visualizzazione errore di voto
+  * Logout
+  * Chiusura applicazione
+
+-----------------------------------------------------
+
+## Esperienza utente ##
+
+### Splash screen ###
+La schermata di apertura dell'applicazione è la splash screen, che verrà visualizzata per 2 secondi e mostrerà il nome dell'app e la relativa icona. Al termine del caricamento l'utente verrà indirizzato alla schermata di login, nel caso in cui sia sloggato al momento dell'apertura dell'app, oppure alla pagina principale, ossia la home in caso di utente di tipo User, o il pannello admin in caso di utente di tipo Admin.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177221618-0c85793f-75af-4150-9b1f-ddbc81f1c6cb.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+### Pagina iniziale ###
+La pagina iniziale, o pagina di autenticazione, è composta da una Bottom Navigation Bar, che consente di scegliere se effettuare il login oppure se effettuare una nuova registrazione. Entrambe le schermate sono composte da un form atto all'inserimento dei dati.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177221808-504a2c78-afe2-4978-831a-078053b8d104.png' height='300' alt='icon' hspace='30'/></a>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177221829-35a182b4-9681-4a59-bf92-ab8107a78668.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+Nel caso in cui i dati inseriti siano errati o incompleti, verà visualizzato un messaggio di errore.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177222084-28afdd93-61a6-45d5-a2f0-fa92c4034a65.png' height='300' alt='icon' hspace='30'/></a>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177222123-b7d8d28c-ab53-4f23-9849-75f986fa4439.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+Nel caso in cui vengano rilevati problemi con l'autenticazione (ad esempio password errata in fase di login, oppure esistenza di un utente con la stessa password inserita in fase di registrazione), verrà visualizzato un messaggio di errore contenente l'eccezione ricevuta da Firebasse.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177222910-6683db45-5225-4215-83c9-c9e40ba84456.png' height='300' alt='icon' hspace='30'/></a>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177222813-f4d420b6-7e97-4ae6-a296-0812e59ee631.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+### Pannello Votazione Admin ###
+Nel caso in cui l'utente sia di tipo Admin, verrà indirizzato alla schermata Pannello Votazione, che consentirà di inserire il nome, e di conseguenza creare, una nuova votazione. 
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177223432-ec216d4a-f545-43db-90e8-5dc338db2d97.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+### Pannello Admin ###
+A seguito dell'inserimento del nome della votazione, l'utente admin visualizzerà il Pannello Candidati, tramite il quale potrà visionare in tempo reale i dati relativi alla votazione, tra i quali il numero di candidati, il numero totale di votazioni effettuate e la lista dei candidati, comprensiva dei rispettivi voti ricevuti.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177223782-6de0f581-fcee-4860-a997-be3e875118d6.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+### Creazione evento ###
+La schermata Pannello Admin sarà corredata di un FloatingButton, il quale, se selezionato, permetterà di visualizzare una bottom sheet che consentirà di aggiungere nuovi candidati tramite un form.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177223976-6a1c8f53-ae82-4565-a71a-593ee6a3d044.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+Nel caso in cui i dati inseriti siano errati o incompleti, verrà visualizzato un messaggio di errore.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177224020-a3236d45-712b-4392-9a17-345c29aca970.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+
+### Pannello Votazione User ###
+Nel caso in cui l'utente sia di tipo User, verrà indirizzato alla schermata Pannello Votazione, che consentirà di inserire il nome della votazione a cui vuole partecipare e l'indirizzo del wallet di Metamask, in modo da poter garaantire l'autenticità dell'elettore, e la relativa validità della votazione. 
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177224486-3af41d9c-f4e0-4e9e-9a01-2b17480d49bf.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+
+### Votazione ###
+A seguito dell'inserimento del nome della votazione e dell'indirizzo del proprio wallet di Metamask, l'utente Elettore verrà indirizzato alla schermata di voto, la quale mediante uno StreamBuilder permetterà di visualizzare i candidati presenti alla votazione, comprensivi di nome, partito di aappartenenza e descrizione.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177225602-36d796f6-09b6-4def-9902-830e5311084d.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+All'interno delle card contenenti le informazioni degli eventi sarà presente un pulsante, il quale consentirà di votare il candidato selezionato. L'iscrizione verrà notificata mediante la visualizzazione di una toast.
+
+
+
+
+
+
+
 
