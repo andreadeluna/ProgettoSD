@@ -182,6 +182,17 @@ class _PannelloNomeVotazioneAdminState extends State<PannelloNomeVotazioneAdmin>
                                         }
                                         if (votazioneController.text.length > 0) {
                                           await startElection(votazioneController.text, ethClient!);
+
+                                          Fluttertoast.showToast(
+                                            msg: "Votazione creata",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.blueGrey,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0,
+                                          );
+
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(

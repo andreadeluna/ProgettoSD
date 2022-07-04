@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:progettosd/schermate/appdrawer_admin.dart';
 import 'package:progettosd/servizi/funzioni.dart';
+import 'package:web3dart/json_rpc.dart';
 import 'package:web3dart/web3dart.dart';
 
 // Pannello admin: permette di visualizzare gli eventi creati, visualizzarne
@@ -98,7 +101,7 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
                             child: ListView(
                               padding: const EdgeInsets.all(8),
                               children: <Widget>[
-                                SizedBox(height: 20),
+                                SizedBox(height: 5),
                                 Container(
                                   padding: const EdgeInsets.all(10),
                                   child: const Text(
@@ -205,8 +208,6 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
                                                                           ),
                                                                           Row(
                                                                             children: [
-                                                                              const Icon(Icons.access_time),
-                                                                              const SizedBox(width: 3),
                                                                               Text(
                                                                                 candidatesnapshot.data![0][1].toString(),
                                                                                 style: const TextStyle(fontSize: 20),
@@ -304,19 +305,36 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
                                                                                     style: TextStyle(
                                                                                         fontSize: 20,
                                                                                         color: Colors.orangeAccent)),
-                                                                                onPressed: () {
-                                                                                  vote(i, widget.ethClient);
+                                                                                onPressed: () async {
 
-                                                                                  // Toast di avvenuta eliminazione
-                                                                                  Fluttertoast.showToast(
-                                                                                    msg: "Voto confermato",
-                                                                                    toastLength: Toast.LENGTH_LONG,
-                                                                                    gravity: ToastGravity.BOTTOM,
-                                                                                    timeInSecForIosWeb: 1,
-                                                                                    backgroundColor: Colors.blueGrey,
-                                                                                    textColor: Colors.white,
-                                                                                    fontSize: 16.0,
-                                                                                  );
+                                                                                  try{
+                                                                                    await vote(i, widget.ethClient);
+
+                                                                                    // Toast di avvenuta eliminazione
+                                                                                    Fluttertoast.showToast(
+                                                                                      msg: "Voto confermato",
+                                                                                      toastLength: Toast.LENGTH_LONG,
+                                                                                      gravity: ToastGravity.BOTTOM,
+                                                                                      timeInSecForIosWeb: 1,
+                                                                                      backgroundColor: Colors.blueGrey,
+                                                                                      textColor: Colors.white,
+                                                                                      fontSize: 16.0,
+                                                                                    );
+                                                                                  }on RPCError catch(e){
+
+                                                                                    print(e);
+
+                                                                                    // Toast di avvenuta eliminazione
+                                                                                    Fluttertoast.showToast(
+                                                                                      msg: "Hai già votato!",
+                                                                                      toastLength: Toast.LENGTH_LONG,
+                                                                                      gravity: ToastGravity.BOTTOM,
+                                                                                      timeInSecForIosWeb: 1,
+                                                                                      backgroundColor: Colors.blueGrey,
+                                                                                      textColor: Colors.white,
+                                                                                      fontSize: 16.0,
+                                                                                    );
+                                                                                  }
 
                                                                                   Navigator.pop(context, false);
                                                                                 },

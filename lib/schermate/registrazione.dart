@@ -190,21 +190,6 @@ class _RegisterState extends State<Register> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
-                                              child: TextFormField(
-                                                style: const TextStyle(
-                                                    fontSize: 20),
-                                                controller: walletController,
-                                                validator: validazioneWallet,
-                                                decoration:
-                                                const InputDecoration(
-                                                  labelText: "Wallet",
-                                                  icon: Icon(Icons.wallet),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
                                               const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
@@ -252,7 +237,6 @@ class _RegisterState extends State<Register> {
                                         'Email': emailController.text,
                                         'Nome': nomeController.text,
                                         'TipoUtente': tipoUtente,
-                                        'Wallet': walletController.text
                                       },
                                     );
 

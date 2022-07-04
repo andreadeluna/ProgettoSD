@@ -32,6 +32,7 @@ class _PannelloNomeVotazioneUserState extends State<PannelloNomeVotazioneUser> {
   Client? httpClient;
   Web3Client? ethClient;
   TextEditingController votazioneController = TextEditingController();
+  TextEditingController walletController = TextEditingController();
 
   _PannelloNomeVotazioneUserState(this.email);
 
@@ -151,6 +152,26 @@ class _PannelloNomeVotazioneUserState extends State<PannelloNomeVotazioneUser> {
                                                   valoreCampo = value!,
                                             ),
                                           ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: TextFormField(
+                                              enableInteractiveSelection: true,
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return 'Inserire indirizzo metamask';
+                                                }
+                                              },
+                                              style:
+                                              const TextStyle(fontSize: 20),
+                                              controller: walletController,
+                                              decoration: const InputDecoration(
+                                                  filled: true,
+                                                  labelText:
+                                                  "Inserisci l'indirizzo metamask"),
+                                              onSaved: (value) =>
+                                              valoreCampo = value!,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -172,16 +193,21 @@ class _PannelloNomeVotazioneUserState extends State<PannelloNomeVotazioneUser> {
                                     ),
                                     child: GestureDetector(
                                       onTap: () async {
-                                        if (_formKey.currentState!.validate()) {
-                                          _formKey.currentState!.save();
-                                          DocumentReference ref = await db
-                                              .collection('Votazioni')
-                                              .add({
-                                            'NomeVotazione':
-                                                votazioneController.text
-                                          });
-                                        }
+
                                         if (votazioneController.text.length > 0) {
+
+                                          await authorizeVoter(walletController.text, ethClient!);
+
+                                          Fluttertoast.showToast(
+                                            msg: "Elettore autorizzato",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.blueGrey,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0,
+                                          );
+
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
