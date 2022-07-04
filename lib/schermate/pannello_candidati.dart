@@ -52,7 +52,7 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
         home: Center(
           child: Scaffold(
             drawer: AppDrawerAdmin(email),
-            floatingActionButton: FloatButton(ethClient: ethClient!),
+            floatingActionButton: FloatButton(ethClient: ethClient),
             appBar: AppBar(
               title: const Text('Pannello Admin',
                   style: TextStyle(fontSize: 40, color: Colors.white)),
@@ -250,7 +250,7 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                                                       subtitle: Text(
                                                         'Voti: ' +
                                                             candidatesnapshot
-                                                                .data![0][1]
+                                                                .data![0][3]
                                                                 .toString(),
                                                         style: TextStyle(
                                                           fontSize: 20,
@@ -530,7 +530,7 @@ class _FloatButtonState extends State<FloatButton> {
                                           id = ref.id;
                                         });
 
-                                        addCandidate(nomeCandidatoController.text, widget.ethClient);
+                                        addCandidate(nomeCandidatoController.text, partitoController.text, descrizioneController.text, widget.ethClient);
 
                                         Fluttertoast.showToast(
                                           msg: "Candidato aggiunto",

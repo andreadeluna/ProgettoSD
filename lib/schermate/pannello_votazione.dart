@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 import 'package:progettosd/schermate/appdrawer_admin.dart';
-import 'package:progettosd/schermate/pannello_candidati.dart';
 import 'package:progettosd/servizi/funzioni.dart';
 import 'package:web3dart/web3dart.dart';
-import '../utili/costanti.dart';
 
+// Pannello admin: permette di visualizzare gli eventi creati, visualizzarne
+// i relativi iscritti, eliminarli e crearne di nuovi
 class PannelloVotazione extends StatefulWidget {
   // *** Dichiarazione variabili ***
   String email;
+  final Web3Client ethClient;
+  final String electionName;
 
-  PannelloVotazione(this.email, {Key? key}) : super(key: key);
+  PannelloVotazione(this.email,
+      {Key? key, required this.ethClient, required this.electionName})
+      : super(key: key);
 
   @override
-  _PannelloVotazioneState createState() => _PannelloVotazioneState(email);
+  _PannelloVotazioneState createState() => _PannelloVotazioneState(email, ethClient);
 }
 
 // Definizione pannello admin
@@ -23,23 +26,11 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
   // *** Dichiarazione variabili ***
   late String id;
   String email;
-  late String valoreCampo;
   final db = FirebaseFirestore.instance;
   List<Widget> textWidgetList = <Widget>[];
-  final _formKey = GlobalKey<FormState>();
+  final Web3Client ethClient;
 
-  Client? httpClient;
-  Web3Client? ethClient;
-  TextEditingController votazioneController = TextEditingController();
-
-  _PannelloVotazioneState(this.email);
-
-  @override
-  void initState() {
-    httpClient = Client();
-    ethClient = Web3Client(alchemy_url, httpClient!);
-    super.initState();
-  }
+  _PannelloVotazioneState(this.email, this.ethClient);
 
   // Widget di costruzione della schermata del pannello admin
   @override
@@ -62,8 +53,8 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
           child: Scaffold(
             drawer: AppDrawerAdmin(email),
             appBar: AppBar(
-              title: const Text('Pannello Votazione',
-                  style: TextStyle(fontSize: 30, color: Colors.white)),
+              title: const Text('Votazione',
+                  style: TextStyle(fontSize: 40, color: Colors.white)),
               backgroundColor: Colors.deepOrange[700],
             ),
             body: Container(
@@ -102,107 +93,273 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.deepOrange[100]!,
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 10),
-                                  )
-                                ]),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                          child: RefreshIndicator(
+                            onRefresh: _refresh,
+                            child: ListView(
+                              padding: const EdgeInsets.all(8),
+                              children: <Widget>[
+                                SizedBox(height: 20),
                                 Container(
                                   padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom:
-                                          BorderSide(color: Colors.grey[200]!),
-                                    ),
+                                  child: const Text(
+                                    'Candidati',
+                                    style: TextStyle(
+                                        fontSize: 45,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
                                   ),
-                                  child: Form(
-                                    key: _formKey,
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                ),
+                                FutureBuilder<List>(
+                                  future: getCandidatesNum(widget.ethClient),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else {
+                                      return Column(
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: TextFormField(
-                                              validator: (value) {
-                                                if (value!.isEmpty) {
-                                                  return 'Inserire nome votazione';
-                                                }
-                                              },
-                                              style:
-                                                  const TextStyle(fontSize: 20),
-                                              controller: votazioneController,
-                                              decoration: const InputDecoration(
-                                                  filled: true,
-                                                  labelText:
-                                                      'Inserisci il nome della votazione'),
-                                              onSaved: (value) =>
-                                                  valoreCampo = value!,
+                                          for (int i = 0;
+                                          i < snapshot.data![0].toInt();
+                                          i++)
+                                            FutureBuilder<List>(
+                                                future: candidateInfo(
+                                                    i, widget.ethClient),
+                                                builder:
+                                                    (context, candidatesnapshot) {
+                                                  if (candidatesnapshot
+                                                      .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return const Center(
+                                                      child: CircularProgressIndicator(),
+                                                    );
+                                                  } else if(snapshot.data![0].toInt() == 0){
+                                                    return Padding(
+                                                      padding:
+                                                      const EdgeInsets.all(
+                                                          10),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: const [
+                                                          Padding(
+                                                            padding:
+                                                            EdgeInsets.all(
+                                                                10),
+                                                            child: Text(
+                                                              'Non sono presenti candidati 😢',
+                                                              style: TextStyle(
+                                                                  fontSize: 21),
+                                                              textAlign: TextAlign
+                                                                  .center,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }
+                                                  else {
+                                                    return Card(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(30),
+                                                      ),
+                                                      color: Colors.red,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(0),
+                                                        child: Container(
+                                                          padding: const EdgeInsets.all(10),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.orange[50],
+                                                            borderRadius: const BorderRadius.only(
+                                                              topLeft: Radius.circular(30),
+                                                              topRight: Radius.circular(30),
+                                                              bottomLeft: Radius.circular(30),
+                                                              bottomRight: Radius.circular(30),
+                                                            ),
+                                                          ),
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            mainAxisSize: MainAxisSize.max,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                candidatesnapshot.data![0][0].toString(),
+                                                                style: const TextStyle(
+                                                                    fontSize: 30, fontWeight: FontWeight.bold),
+                                                              ),
+                                                              const SizedBox(height: 12),
+                                                              Column(
+                                                                //crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                children: [
+                                                                  Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                    children: [
+                                                                      Column(
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          const Text(
+                                                                            "Partito: ",
+                                                                            style: TextStyle(
+                                                                                fontSize: 24, fontWeight: FontWeight.bold),
+                                                                          ),
+                                                                          Row(
+                                                                            children: [
+                                                                              const Icon(Icons.access_time),
+                                                                              const SizedBox(width: 3),
+                                                                              Text(
+                                                                                candidatesnapshot.data![0][1].toString(),
+                                                                                style: const TextStyle(fontSize: 20),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              const SizedBox(height: 12),
+                                                              Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                children: [
+                                                                  const Text(
+                                                                    "Descrizione: ",
+                                                                    style:
+                                                                    TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                                                                  ),
+                                                                  Text(
+                                                                    candidatesnapshot.data![0][2].toString(),
+                                                                    textAlign: TextAlign.justify,
+                                                                    style: const TextStyle(fontSize: 20),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              const SizedBox(height: 12),
+                                                              Row(
+                                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                                children: <Widget>[
+                                                                  // Richiesta di conferma eliminazione evento
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      showDialog(
+                                                                          context: context,
+                                                                          builder: (context) => AlertDialog(
+                                                                            backgroundColor: Colors.grey[50],
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(15),
+                                                                            ),
+                                                                            content: Stack(
+                                                                              clipBehavior: Clip.none,
+                                                                              alignment: Alignment.topCenter,
+                                                                              children: [
+                                                                                SizedBox(
+                                                                                  height: 150,
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsets.fromLTRB(
+                                                                                        10, 70, 10, 10),
+                                                                                    child: Column(
+                                                                                      children: const [
+                                                                                        Text(
+                                                                                          "Attenzione",
+                                                                                          style: TextStyle(
+                                                                                              fontWeight: FontWeight.bold,
+                                                                                              fontSize: 23),
+                                                                                        ),
+                                                                                        SizedBox(height: 5),
+                                                                                        Text(
+                                                                                          "Confermi il voto?",
+                                                                                          style: TextStyle(fontSize: 18),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                                Positioned(
+                                                                                  top: -60,
+                                                                                  child: CircleAvatar(
+                                                                                    backgroundColor: Colors.deepOrange[700],
+                                                                                    radius: 60,
+                                                                                    child: const Icon(
+                                                                                      Icons.how_to_vote,
+                                                                                      color: Colors.white,
+                                                                                      size: 50,
+                                                                                    ),
+                                                                                  ),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                child: const Text('No',
+                                                                                    style: TextStyle(
+                                                                                        fontSize: 20,
+                                                                                        color: Colors.orangeAccent)),
+                                                                                onPressed: () {
+                                                                                  Navigator.pop(context, false);
+                                                                                },
+                                                                              ),
+                                                                              TextButton(
+                                                                                child: const Text('Si',
+                                                                                    style: TextStyle(
+                                                                                        fontSize: 20,
+                                                                                        color: Colors.orangeAccent)),
+                                                                                onPressed: () {
+                                                                                  vote(i, widget.ethClient);
+
+                                                                                  // Toast di avvenuta eliminazione
+                                                                                  Fluttertoast.showToast(
+                                                                                    msg: "Voto confermato",
+                                                                                    toastLength: Toast.LENGTH_LONG,
+                                                                                    gravity: ToastGravity.BOTTOM,
+                                                                                    timeInSecForIosWeb: 1,
+                                                                                    backgroundColor: Colors.blueGrey,
+                                                                                    textColor: Colors.white,
+                                                                                    fontSize: 16.0,
+                                                                                  );
+
+                                                                                  Navigator.pop(context, false);
+                                                                                },
+                                                                              ),
+                                                                            ],
+                                                                          ));
+                                                                    },
+                                                                    child: Container(
+                                                                      height: 50,
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(15),
+                                                                          color: Colors.deepOrange[900]),
+                                                                      child: const Center(
+                                                                        child: Padding(
+                                                                          padding: EdgeInsets.all(5),
+                                                                          child: Text(
+                                                                            "Vota",
+                                                                            style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontSize: 20,
+                                                                                fontWeight: FontWeight.bold),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+
+                                                    );
+
+                                                  }
+                                                },
                                             ),
-                                          ),
                                         ],
-                                      ),
-                                    ),
-                                  ),
+                                      );
+                                    }
+                                  },
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 45,
-                                  child: Container(
-                                    height: 50,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 50),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Colors.deepOrange[900],
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        if (_formKey.currentState!.validate()) {
-                                          _formKey.currentState!.save();
-                                          DocumentReference ref = await db
-                                              .collection('Votazioni')
-                                              .add({
-                                            'NomeVotazione':
-                                                votazioneController.text
-                                          });
-                                        }
-                                        if (votazioneController.text.length > 0) {
-                                          await startElection(votazioneController.text, ethClient!);
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PannelloCandidati(
-                                                          email, ethClient: ethClient!, electionName: votazioneController.text,)));
-                                        }
-                                      },
-                                      child: const Center(
-                                        child: Text(
-                                          "Vai alla votazione",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
                               ],
                             ),
                           ),
@@ -217,5 +374,14 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
         ),
       ),
     );
+  }
+
+  Future _refresh() async {
+
+    await Future.delayed(
+      Duration(seconds: 0),
+    );
+
+    setState((){});
   }
 }

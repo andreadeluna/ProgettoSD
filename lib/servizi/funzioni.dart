@@ -30,8 +30,8 @@ Future<String> startElection(String name, Web3Client ethClient) async{
   return response;
 }
 
-Future<String> addCandidate(String name, Web3Client ethClient) async{
-  var response = await callFunction('agiungiCandidato', [name], ethClient, owner_private_key);
+Future<String> addCandidate(String name, String partito, String descrizione, Web3Client ethClient) async{
+  var response = await callFunction('agiungiCandidato', [name, partito, descrizione], ethClient, owner_private_key);
   print('Candidato aggiunto con successo');
 
   return response;
