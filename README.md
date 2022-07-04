@@ -1,4 +1,4 @@
-# ProgettoSD
+# Let's Vote!
 ## Progetto di Sistemi Distribuiti
 ### Studenti : 
 **Nome e Cognome :** Andrea De Luna  
