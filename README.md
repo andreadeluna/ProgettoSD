@@ -1,4 +1,4 @@
-# ProgettoSD-API
+# ProgettoSD
 ## Progetto di Sistemi Distribuiti
 ### Studenti : 
 **Nome e Cognome :** Andrea De Luna  
