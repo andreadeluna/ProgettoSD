@@ -24,7 +24,7 @@ Nello smart contract realizzato per l'applicazione sono presenti:
 * Un amministratore (proprietario dell'elezione), che ha il compito di distribuire il contratto, autorizza gli elettori a votare ed inserisce nuovi candidati alla lista.
 * Degli elettori, che possono votare un candidato una volta che il contratto è stato distribuito.
 
-Uno degli obiettivi principali dell'esecuzione di una votazione tramite blockchain è che è possibile tenere traccia delle azioni compiute dall'uente, quindi la votazione potrà essere effettuata solamente una volta, e non più ripetuta.
+Uno degli obiettivi principali dell'esecuzione di una votazione tramite blockchain è che è possibile tenere traccia delle azioni compiute dall'utente, quindi la votazione potrà essere effettuata solamente una volta, e non più ripetuta.
 
 -----------------------------------------------------
 
