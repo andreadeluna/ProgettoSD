@@ -275,7 +275,7 @@ Nel caso in cui l'utente sia di tipo User, verrà indirizzato alla schermata Pan
 
 
 ### Votazione ###
-A seguito dell'inserimento del nome della votazione e dell'indirizzo del proprio wallet di Metamask, l'utente Elettore verrà indirizzato alla schermata di voto, la quale mediante uno StreamBuilder permetterà di visualizzare i candidati presenti alla votazione, comprensivi di nome, partito di aappartenenza e descrizione.
+A seguito dell'inserimento del nome della votazione e dell'indirizzo del proprio wallet di Metamask, l'utente Elettore verrà indirizzato alla schermata di voto, la quale mediante uno StreamBuilder permetterà di visualizzare i candidati presenti alla votazione, comprensivi di nome, partito di appartenenza e descrizione.
 <div align="center">
   <row>
     <a><img src='https://user-images.githubusercontent.com/44511696/177225602-36d796f6-09b6-4def-9902-830e5311084d.png' height='300' alt='icon'/></a>
