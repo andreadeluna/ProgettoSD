@@ -31,7 +31,7 @@ Uno degli obiettivi principali dell'esecuzione di una votazione tramite blockcha
 ## Creazione di un portafoglio Metamask
 Per interagire con la DApp della blockchain di Ethereum è stato utilizzato il plug-in per browser MetaMask, in quanto funge da ponte tra DApp e browser web grazie a web3.js, una libreria che fa parte dello sviluppo ufficiale di Ethereum, nata per consentire la creazione di applicazioni web che potessero interagire con la blockchain di Ethereum stesso.  
 MetaMask è quindi un portafoglio per Ethereum e uno strumento per interagire con le DApps. Per fare ciò stabilisce un canale di comunicazione tra l'estensione e la DApp in questione.  
-Una volta che l'applicazione riconosce la presenza di MetaMask esso viene abilitato, ed è possibile eseguire tutte le azioni o gli eventi che permette di svolgere.  
+Una volta che l'applicazione riconosce la presenza di MetaMask esso viene abilitato, ed è possibile eseguire le azioni o gli eventi che permette di svolgere.  
 Tutte le azioni che si compiono devono essere pagate in termini di "commissioni di gas" ai miners, in modo che essi possano verificare ed accettare le transazioni che si vogliono effettuare.
 A tale scopo è stato necessario collegarsi ad una rete di test (Goerli), in modo da non utilizzare soldi reali per le transazioni. Successivamente, si sono dovuti scaricare degli "Ethereum di test" dal sito "https://goerlifaucet.com/", in modo da poter eseguire le operazioni necessarie durante l'utilizzo dell'API.
 Su Metamask abbiamo utilizzato due account: 
