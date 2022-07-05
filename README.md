@@ -318,15 +318,25 @@ L'avvenuta votazione verrà notificata mediante la visualizzazione di un toast. 
 ### Pacchetti utilizzati ###
 Per lo sviluppo dell'applicazione sono stati utilizzati i seguenti pacchetti:
 
+  - <b>web3dart:</b> consente il collegamento alla blockchain di Ethereum
   - <b>firebase_core:</b> necessario al collegamento a Firebase, utile per permettere di utilizzarne le API e i relativi servizi offerti
   - <b>firebase_auth:</b> utile all'utilizzo dei servizi di autenticazione di Firebase
   - <b>cloud_firestore:</b> utile all'utilizzo dei servizi di database di Firebase
   - <b>provider:</b> utilizzato per gestire il processo di autenticazione e di registrazione di un utente
-  - <b>random_string:</b> utilizzato per la generazione del codice personale dell'utente in fase di iscrizione ad un evento
   - <b>fluttertoast:</b> necessario per la visualizzazione dei toast di completamento delle operazioni
   - <b>http:</b> necessario per effettuare il collegamento ad un servizio esposto da un'API REST e per effettuarne il relativo parsing dei dati
-  - <b>google_maps_flutter:</b> utilizzato per la costruzione e la visualizzazione della mappa contenente la posizione del locale organizzatore dell'evento
-  - <b>json_serializable:</b> utile alla gestione dei JSON ricavati dal collegamento al servizio esposto da un'API REST
+  
+### Compatibilità ###
+L'applicazione è compatibile con dispositivi mobile di tipo smartphone o tablet, dotati di Sistema Operativo Android e iOS. In particolare, per quanto riguarda Android, saranno supportate le versioni con SDK pari o superiore a 20 (Android 4.4), mentre per quanto riguarda iOS saranno supportate le versioni pari o superiori ad iOS 11.0.
+
+-----------------------------------------------------
+
+### Link e riferimenti ###
+- Link API utilizzata per effettuare la votazione:
+  * https://github.com/andreadeluna/ProgettoSD-API
+
+  
+
 
 
 
