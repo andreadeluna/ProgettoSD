@@ -49,7 +49,7 @@ Uno smart contract è in grado di realizzarsi e di farsi rispettare in modo auto
 Non essendo verbale, né scritto in nessuna delle lingue che parliamo, evita il problema dell'interpretazione personale.  
 In particolare, è uno "script" (codice informaticio) scritto con linguaggi di programmazione, visibile a tutti e che non può essere modificato in quanto presente sulla tecnologia blockchain.  
 Il linguaggio di programmazione utilizzato per scrivere lo smart contract è Solidity, progettato specificamente per sviluppare applicazioni per la rete Ethereum.  
-Grazie a EVM e Solidity è possibile programmare azioni che verranno poi eseguite da EVM in modo decentralizzato sulla rete Ethereum, e questo implica che deve essere predisposto un meccanismo di protezione per prevenirne l'uso improprio. Questo meccanismo è noto come "Gas" e serve per evitare che il sistema venga bloccato dalla creazione di loop infiniti o altre azioni dannose.
+Grazie a EVM (Ethereum Virtual Machine) e Solidity è possibile programmare azioni che verranno poi eseguite da EVM in modo decentralizzato sulla rete Ethereum, e questo implica che deve essere predisposto un meccanismo di protezione per prevenirne l'uso improprio. Questo meccanismo è noto come "Gas" e serve per evitare che il sistema venga bloccato dalla creazione di loop infiniti o altre azioni dannose.
 
 Come prima cosa è stata definita la licenza e la versione di solidity.  
 Il contratto contiene al suo interno :
