@@ -17,7 +17,7 @@
         "type": "string"
       }
     ],
-    "name": "agiungiCandidato",
+    "name": "aggiungiCandidato",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -31,32 +31,6 @@
       }
     ],
     "name": "autorizzaElettore",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_nomeVotazione",
-        "type": "string"
-      }
-    ],
-    "name": "inizioVotazione",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "indiceCandidato",
-        "type": "uint256"
-      }
-    ],
-    "name": "votazione",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -197,6 +171,19 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_nomeVotazione",
+        "type": "string"
+      }
+    ],
+    "name": "inizioVotazione",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "nomeVotazione",
     "outputs": [
@@ -220,6 +207,19 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "indiceCandidato",
+        "type": "uint256"
+      }
+    ],
+    "name": "votazione",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
