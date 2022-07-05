@@ -283,12 +283,50 @@ A seguito dell'inserimento del nome della votazione e dell'indirizzo del proprio
   </row>
 </div>
 
-All'interno delle card contenenti le informazioni degli eventi sarà presente un pulsante, il quale consentirà di votare il candidato selezionato. L'iscrizione verrà notificata mediante la visualizzazione di una toast.
+All'interno delle card contenenti le informazioni degli eventi sarà presente un pulsante, il quale consentirà di votare il candidato selezionato. 
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177226791-e46eff26-8838-4839-bdff-f5a71f8be954.png' height='300' alt='icon'/></a>
+  </row>
+</div>
 
+L'avvenuta votazione verrà notificata mediante la visualizzazione di un toast. Nel caso in cui l'utente 
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177227313-cf37de5d-fd30-484a-8f97-2514320985d0.png' height='300' alt='icon' hspace='30'/></a>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177227332-c393f03d-dce5-47a7-8daf-2a1b0bcaa16b.png' height='300' alt='icon'/></a>
+  </row>
+</div>
 
+-----------------------------------------------------
 
+## Tecnologia ##
+### Funzionalità ###
+  - L'applicazione è corredata di un sistema di registrazione e di login, gestito tramite Firebase. L'autenticazione viene effettuata mediante provider, e viene richiesto all'utente l'inserimento di indirizzo email e password. L'indirizzo email deve corrispondere al formato standard definito da un'espressione regolare, e la password deve essere di una lunghezza di almeno 6 caratteri, deve inoltre contenere un numero, una lettera maiuscola e un simbolo. Nel caso in cui vengano riscontrati problemi oppure errori in fase di autenticazione, l'eccezione fornita da Firebase verrà mostrata sottoforma di messaggio di errore. Viene inoltre effettuata la validazione su tutti i campi di inserimento di testo, con relativa segnalazione di errore nel caso in cui siano riscontrate difformità.
+  
+- I dati inseriti all'interno dell'applicazione quali dati di registrazione e di aggiunta candidati vengono gestiti con un database di Firebase. In particolare, al momento della registrazione viene creata una tabella Utente contenente i dati ricevuti. Allo stesso modo, nel momento in cui viene aggiunto un nuovo candidato, viene creata una tabella contenente i dati inseriti.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/177228517-41ddb57b-46bc-49d1-b7b9-76b81778933d.png' height='140' alt='icon'/></a>
+  </row>
+</div>
 
+- L'interfaccia dell'applicazione è completamente responsive, sarà dunque possibile utilizzarla nei dispositivi mobile di tipo smartphone e tablet, e inoltre browser, sia in modalità portrait, sia in modalità landscape.
 
+- Ad ogni operazione effettuata ed andata a buon fine verrà visualizzato un toast di comunicazione (registrazione, login, logout, creazione evento, eliminazione evento).
+
+### Pacchetti utilizzati ###
+Per lo sviluppo dell'applicazione sono stati utilizzati i seguenti pacchetti:
+
+  - <b>firebase_core:</b> necessario al collegamento a Firebase, utile per permettere di utilizzarne le API e i relativi servizi offerti
+  - <b>firebase_auth:</b> utile all'utilizzo dei servizi di autenticazione di Firebase
+  - <b>cloud_firestore:</b> utile all'utilizzo dei servizi di database di Firebase
+  - <b>provider:</b> utilizzato per gestire il processo di autenticazione e di registrazione di un utente
+  - <b>random_string:</b> utilizzato per la generazione del codice personale dell'utente in fase di iscrizione ad un evento
+  - <b>fluttertoast:</b> necessario per la visualizzazione dei toast di completamento delle operazioni
+  - <b>http:</b> necessario per effettuare il collegamento ad un servizio esposto da un'API REST e per effettuarne il relativo parsing dei dati
+  - <b>google_maps_flutter:</b> utilizzato per la costruzione e la visualizzazione della mappa contenente la posizione del locale organizzatore dell'evento
+  - <b>json_serializable:</b> utile alla gestione dei JSON ricavati dal collegamento al servizio esposto da un'API REST
 
 
 
