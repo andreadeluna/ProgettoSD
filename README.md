@@ -266,7 +266,7 @@ Nel caso in cui i dati inseriti siano errati o incompleti, verrà visualizzato u
 
 
 ### Pannello Votazione User ###
-Nel caso in cui l'utente sia di tipo User, verrà indirizzato alla schermata Pannello Votazione, che consentirà di inserire il nome della votazione a cui vuole partecipare e l'indirizzo del wallet di Metamask, in modo da poter garaantire l'autenticità dell'elettore, e la relativa validità della votazione. 
+Nel caso in cui l'utente sia di tipo User, verrà indirizzato alla schermata Pannello Votazione, che consentirà di inserire il nome della votazione a cui vuole partecipare e l'indirizzo del wallet di Metamask, in modo da poter garantire l'autenticità dell'elettore, e la relativa validità della votazione. 
 <div align="center">
   <row>
     <a><img src='https://user-images.githubusercontent.com/44511696/177224486-3af41d9c-f4e0-4e9e-9a01-2b17480d49bf.png' height='300' alt='icon'/></a>
