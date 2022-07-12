@@ -21,7 +21,7 @@ L'accettazione o meno delle operazioni effettuate dagli utenti della DApp è sub
 Anche l'applicazione di voto in questione quindi, può operare in modo autonomo grazie all'uso di uno smart contract, ovvero codice scritto sulla blockchain
 e che quindi una volta implementato non può essere modificato in modo semplice.  
 Nello smart contract realizzato per l'applicazione sono presenti:
-* Un amministratore (proprietario dell'elezione), che ha il compito di distribuire il contratto, autorizza gli elettori a votare ed inserisce nuovi candidati alla lista.
+* Un amministratore (proprietario dell'elezione), che ha il compito di distribuire il contratto, autorizzare gli elettori a votare ed inserisce nuovi candidati alla lista.
 * Degli elettori, che possono votare un candidato una volta che il contratto è stato distribuito.
 
 Uno degli obiettivi principali dell'esecuzione di una votazione tramite blockchain è che è possibile tenere traccia delle azioni compiute dall'utente, quindi la votazione potrà essere effettuata solamente una volta, e non più ripetuta.
