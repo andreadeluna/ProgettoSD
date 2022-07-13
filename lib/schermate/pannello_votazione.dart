@@ -237,131 +237,282 @@ class _PannelloVotazioneState extends State<PannelloVotazione> {
                                                                 ],
                                                               ),
                                                               const SizedBox(height: 12),
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                                children: <Widget>[
-                                                                  // Richiesta di conferma eliminazione evento
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      showDialog(
-                                                                          context: context,
-                                                                          builder: (context) => AlertDialog(
-                                                                            backgroundColor: Colors.grey[50],
-                                                                            shape: RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(15),
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  showDialog(
+                                                                      context: context,
+                                                                      builder: (context) => AlertDialog(
+                                                                        backgroundColor: Colors.grey[50],
+                                                                        shape: RoundedRectangleBorder(
+                                                                          borderRadius: BorderRadius.circular(15),
+                                                                        ),
+                                                                        content: Stack(
+                                                                          clipBehavior: Clip.none,
+                                                                          alignment: Alignment.topCenter,
+                                                                          children: [
+                                                                            SizedBox(
+                                                                              height: 150,
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.fromLTRB(
+                                                                                    10, 70, 10, 10),
+                                                                                child: Column(
+                                                                                  children: const [
+                                                                                    Text(
+                                                                                      "Attenzione",
+                                                                                      style: TextStyle(
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                          fontSize: 23),
+                                                                                    ),
+                                                                                    SizedBox(height: 5),
+                                                                                    Text(
+                                                                                      "Confermi il voto?",
+                                                                                      style: TextStyle(fontSize: 18),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
                                                                             ),
-                                                                            content: Stack(
-                                                                              clipBehavior: Clip.none,
-                                                                              alignment: Alignment.topCenter,
-                                                                              children: [
-                                                                                SizedBox(
-                                                                                  height: 150,
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.fromLTRB(
-                                                                                        10, 70, 10, 10),
-                                                                                    child: Column(
-                                                                                      children: const [
-                                                                                        Text(
-                                                                                          "Attenzione",
-                                                                                          style: TextStyle(
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                              fontSize: 23),
+                                                                            Positioned(
+                                                                              top: -60,
+                                                                              child: CircleAvatar(
+                                                                                backgroundColor: Colors.deepOrange[700],
+                                                                                radius: 60,
+                                                                                child: const Icon(
+                                                                                  Icons.how_to_vote,
+                                                                                  color: Colors.white,
+                                                                                  size: 50,
+                                                                                ),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                            child: const Text('No',
+                                                                                style: TextStyle(
+                                                                                    fontSize: 20,
+                                                                                    color: Colors.orangeAccent)),
+                                                                            onPressed: () {
+                                                                              Navigator.pop(context, false);
+                                                                            },
+                                                                          ),
+                                                                          TextButton(
+                                                                            child: const Text('Si',
+                                                                                style: TextStyle(
+                                                                                    fontSize: 20,
+                                                                                    color: Colors.orangeAccent)),
+                                                                            onPressed: () async {
+
+                                                                              try{
+                                                                                await vote(i, widget.ethClient);
+
+                                                                                Navigator.pop(context, false);
+
+                                                                                showDialog(
+                                                                                  context: context,
+                                                                                  // Visualizzazione messaggio di avvenuta iscrizione
+                                                                                  // e visualizzazione codice personale
+                                                                                  builder: (context) => AlertDialog(
+                                                                                    backgroundColor: Colors.grey[50],
+                                                                                    shape: RoundedRectangleBorder(
+                                                                                      borderRadius: BorderRadius.circular(15),
+                                                                                    ),
+                                                                                    content: Stack(
+                                                                                      clipBehavior: Clip.none,
+                                                                                      alignment: Alignment.topCenter,
+                                                                                      children: [
+                                                                                        SizedBox(
+                                                                                          height: 220,
+                                                                                          child: Padding(
+                                                                                            padding:
+                                                                                            const EdgeInsets.fromLTRB(10, 70, 10, 10),
+                                                                                            child: Column(
+                                                                                              children: const [
+                                                                                                Text(
+                                                                                                  "Voto confermato!",
+                                                                                                  style: TextStyle(
+                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                      fontSize: 23),
+                                                                                                ),
+                                                                                                SizedBox(height: 30),
+                                                                                                Text(
+                                                                                                  "Il tuo voto è stato acquisito con successo! 🥳",
+                                                                                                  textAlign: TextAlign.center,
+                                                                                                  style: TextStyle(fontSize: 20),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
                                                                                         ),
-                                                                                        SizedBox(height: 5),
-                                                                                        Text(
-                                                                                          "Confermi il voto?",
-                                                                                          style: TextStyle(fontSize: 18),
-                                                                                        ),
+                                                                                        Positioned(
+                                                                                          top: -60,
+                                                                                          child: CircleAvatar(
+                                                                                            backgroundColor: Colors.deepOrange[700],
+                                                                                            radius: 60,
+                                                                                            child: const Icon(
+                                                                                              Icons.check,
+                                                                                              color: Colors.white,
+                                                                                              size: 50,
+                                                                                            ),
+                                                                                          ),
+                                                                                        )
                                                                                       ],
                                                                                     ),
+                                                                                    actions: [
+                                                                                      GestureDetector(
+                                                                                        onTap: () {
+                                                                                          Navigator.pop(context, false);
+                                                                                        },
+                                                                                        child: Container(
+                                                                                          height: 50,
+                                                                                          margin:
+                                                                                          const EdgeInsets.symmetric(horizontal: 50),
+                                                                                          decoration: BoxDecoration(
+                                                                                              borderRadius: BorderRadius.circular(50),
+                                                                                              color: Colors.deepOrange[900]),
+                                                                                          child: const Center(
+                                                                                            child: Text(
+                                                                                              "Chiudi",
+                                                                                              style: TextStyle(
+                                                                                                  color: Colors.white,
+                                                                                                  fontSize: 25,
+                                                                                                  fontWeight: FontWeight.bold),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
                                                                                   ),
-                                                                                ),
-                                                                                Positioned(
-                                                                                  top: -60,
-                                                                                  child: CircleAvatar(
-                                                                                    backgroundColor: Colors.deepOrange[700],
-                                                                                    radius: 60,
-                                                                                    child: const Icon(
-                                                                                      Icons.how_to_vote,
-                                                                                      color: Colors.white,
-                                                                                      size: 50,
+                                                                                );
+
+                                                                                // Toast di avvenuta eliminazione
+                                                                                Fluttertoast.showToast(
+                                                                                  msg: "Voto confermato",
+                                                                                  toastLength: Toast.LENGTH_LONG,
+                                                                                  gravity: ToastGravity.BOTTOM,
+                                                                                  timeInSecForIosWeb: 1,
+                                                                                  backgroundColor: Colors.blueGrey,
+                                                                                  textColor: Colors.white,
+                                                                                  fontSize: 16.0,
+                                                                                );
+                                                                              }on RPCError catch(e){
+
+                                                                                print(e);
+
+                                                                                Navigator.pop(context, false);
+
+                                                                                showDialog(
+                                                                                  context: context,
+                                                                                  // Visualizzazione messaggio di avvenuta iscrizione
+                                                                                  // e visualizzazione codice personale
+                                                                                  builder: (context) => AlertDialog(
+                                                                                    backgroundColor: Colors.grey[50],
+                                                                                    shape: RoundedRectangleBorder(
+                                                                                      borderRadius: BorderRadius.circular(15),
                                                                                     ),
+                                                                                    content: Stack(
+                                                                                      clipBehavior: Clip.none,
+                                                                                      alignment: Alignment.topCenter,
+                                                                                      children: [
+                                                                                        SizedBox(
+                                                                                          height: 220,
+                                                                                          child: Padding(
+                                                                                            padding:
+                                                                                            const EdgeInsets.fromLTRB(10, 70, 10, 10),
+                                                                                            child: Column(
+                                                                                              children: const [
+                                                                                                Text(
+                                                                                                  "Hai già votato!",
+                                                                                                  style: TextStyle(
+                                                                                                      fontWeight: FontWeight.bold,
+                                                                                                      fontSize: 23),
+                                                                                                ),
+                                                                                                SizedBox(height: 30),
+                                                                                                Text(
+                                                                                                  "Non è stato possibile acquisire il voto ☹️",
+                                                                                                  textAlign: TextAlign.center,
+                                                                                                  style: TextStyle(fontSize: 20),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        Positioned(
+                                                                                          top: -60,
+                                                                                          child: CircleAvatar(
+                                                                                            backgroundColor: Colors.deepOrange[700],
+                                                                                            radius: 60,
+                                                                                            child: const Icon(
+                                                                                              Icons.error,
+                                                                                              color: Colors.white,
+                                                                                              size: 50,
+                                                                                            ),
+                                                                                          ),
+                                                                                        )
+                                                                                      ],
+                                                                                    ),
+                                                                                    actions: [
+                                                                                      GestureDetector(
+                                                                                        onTap: () {
+                                                                                          Navigator.pop(context, false);
+                                                                                        },
+                                                                                        child: Container(
+                                                                                          height: 50,
+                                                                                          margin:
+                                                                                          const EdgeInsets.symmetric(horizontal: 50),
+                                                                                          decoration: BoxDecoration(
+                                                                                              borderRadius: BorderRadius.circular(50),
+                                                                                              color: Colors.deepOrange[900]),
+                                                                                          child: const Center(
+                                                                                            child: Text(
+                                                                                              "Chiudi",
+                                                                                              style: TextStyle(
+                                                                                                  color: Colors.white,
+                                                                                                  fontSize: 25,
+                                                                                                  fontWeight: FontWeight.bold),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
                                                                                   ),
-                                                                                )
-                                                                              ],
-                                                                            ),
-                                                                            actions: [
-                                                                              TextButton(
-                                                                                child: const Text('No',
-                                                                                    style: TextStyle(
-                                                                                        fontSize: 20,
-                                                                                        color: Colors.orangeAccent)),
-                                                                                onPressed: () {
-                                                                                  Navigator.pop(context, false);
-                                                                                },
-                                                                              ),
-                                                                              TextButton(
-                                                                                child: const Text('Si',
-                                                                                    style: TextStyle(
-                                                                                        fontSize: 20,
-                                                                                        color: Colors.orangeAccent)),
-                                                                                onPressed: () async {
+                                                                                );
 
-                                                                                  try{
-                                                                                    await vote(i, widget.ethClient);
+                                                                                // Toast di avvenuta eliminazione
+                                                                                Fluttertoast.showToast(
+                                                                                  msg: "Hai già votato!",
+                                                                                  toastLength: Toast.LENGTH_LONG,
+                                                                                  gravity: ToastGravity.BOTTOM,
+                                                                                  timeInSecForIosWeb: 1,
+                                                                                  backgroundColor: Colors.blueGrey,
+                                                                                  textColor: Colors.white,
+                                                                                  fontSize: 16.0,
+                                                                                );
+                                                                              }
 
-                                                                                    // Toast di avvenuta eliminazione
-                                                                                    Fluttertoast.showToast(
-                                                                                      msg: "Voto confermato",
-                                                                                      toastLength: Toast.LENGTH_LONG,
-                                                                                      gravity: ToastGravity.BOTTOM,
-                                                                                      timeInSecForIosWeb: 1,
-                                                                                      backgroundColor: Colors.blueGrey,
-                                                                                      textColor: Colors.white,
-                                                                                      fontSize: 16.0,
-                                                                                    );
-                                                                                  }on RPCError catch(e){
-
-                                                                                    print(e);
-
-                                                                                    // Toast di avvenuta eliminazione
-                                                                                    Fluttertoast.showToast(
-                                                                                      msg: "Hai già votato!",
-                                                                                      toastLength: Toast.LENGTH_LONG,
-                                                                                      gravity: ToastGravity.BOTTOM,
-                                                                                      timeInSecForIosWeb: 1,
-                                                                                      backgroundColor: Colors.blueGrey,
-                                                                                      textColor: Colors.white,
-                                                                                      fontSize: 16.0,
-                                                                                    );
-                                                                                  }
-
-                                                                                  Navigator.pop(context, false);
-                                                                                },
-                                                                              ),
-                                                                            ],
-                                                                          ));
-                                                                    },
-                                                                    child: Container(
-                                                                      height: 50,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(15),
-                                                                          color: Colors.deepOrange[900]),
-                                                                      child: const Center(
-                                                                        child: Padding(
-                                                                          padding: EdgeInsets.all(5),
-                                                                          child: Text(
-                                                                            "Vota",
-                                                                            style: TextStyle(
-                                                                                color: Colors.white,
-                                                                                fontSize: 20,
-                                                                                fontWeight: FontWeight.bold),
+                                                                            },
                                                                           ),
-                                                                        ),
+                                                                        ],
+                                                                      ));
+                                                                },
+                                                                child: Container(
+                                                                  height: 50,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(15),
+                                                                      color: Colors.deepOrange[900]),
+                                                                  child: const Center(
+                                                                    child: Padding(
+                                                                      padding: EdgeInsets.all(5),
+                                                                      child: Text(
+                                                                        "Vota",
+                                                                        style: TextStyle(
+                                                                            color: Colors.white,
+                                                                            fontSize: 20,
+                                                                            fontWeight: FontWeight.bold),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ],
+                                                                ),
                                                               )
                                                             ],
                                                           ),
