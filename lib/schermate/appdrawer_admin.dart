@@ -37,13 +37,6 @@ class AppDrawerAdmin extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Profilo', style: TextStyle(fontSize: 20)),
-            onTap: () async {
-              /*Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Profilo(email)));*/
-            },
-          ),
-          ListTile(
             title: const Text('Logout', style: TextStyle(fontSize: 20)),
             onTap: () async {
               await authService.signOut();
