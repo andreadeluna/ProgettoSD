@@ -44,8 +44,9 @@ Le chiavi private del proprietario e dell'elettore sono poi state definite nel f
 
 ## Creazione dello smart contract
 I contratti sono regole che consentono, a tutte le parti che lo accettano, di capire in cosa consisterà l'interazione che intendono effettuare.  
-Uno smart contract è in grado di realizzarsi e di farsi rispettare in modo autonomo e automatico, senza intermediari e senza dipendere da un'autorità centrale.  
+Uno smart contract è in grado di realizzarsi e di farsi rispettare in modo autonomo e automatico, senza intermediari e senza dipendere da un'autorità centrale. Questo consente di semplificare i processi permettendo al consumatore di risparmiare sui costi.  
 Non essendo verbale, né scritto in nessuna delle lingue che parliamo, evita il problema dell'interpretazione personale.  
+Questo tipo di contratto ha la capacità di auto-eseguire azioni secondo una serie di parametri già programmati in modo immutabile, trasparente e completamente sicuro.
 In particolare, è uno "script" (codice informaticio) scritto con linguaggi di programmazione, visibile a tutti e che non può essere modificato in quanto presente sulla tecnologia blockchain.  
 Il linguaggio di programmazione utilizzato per scrivere lo smart contract è Solidity, progettato specificamente per sviluppare applicazioni per la rete Ethereum.  
 Grazie a EVM (Ethereum Virtual Machine) e Solidity è possibile programmare azioni che verranno poi eseguite da EVM in modo decentralizzato sulla rete Ethereum, e questo implica che deve essere predisposto un meccanismo di protezione per prevenirne l'uso improprio. Questo meccanismo è noto come "Gas" e serve per evitare che il sistema venga bloccato dalla creazione di loop infiniti o altre azioni dannose.
