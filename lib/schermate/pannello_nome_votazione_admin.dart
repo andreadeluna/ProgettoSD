@@ -8,18 +8,23 @@ import 'package:progettosd/servizi/funzioni.dart';
 import 'package:web3dart/web3dart.dart';
 import '../utili/costanti.dart';
 
+// Pannello inserimento nome votazione admin: consente all'utente di tipo admin
+// di inserire il nome della votazione, e di conseguenza di creare e avviare una
+// nuova votazione
 class PannelloNomeVotazioneAdmin extends StatefulWidget {
   // *** Dichiarazione variabili ***
-  String email;
+  final String email;
 
-  PannelloNomeVotazioneAdmin(this.email, {Key? key}) : super(key: key);
+  const PannelloNomeVotazioneAdmin(this.email, {Key? key}) : super(key: key);
 
   @override
-  _PannelloNomeVotazioneAdminState createState() => _PannelloNomeVotazioneAdminState(email);
+  _PannelloNomeVotazioneAdminState createState() =>
+      _PannelloNomeVotazioneAdminState(email);
 }
 
-// Definizione pannello admin
-class _PannelloNomeVotazioneAdminState extends State<PannelloNomeVotazioneAdmin> {
+// Definizione pannello inserimento nome votazione admin
+class _PannelloNomeVotazioneAdminState
+    extends State<PannelloNomeVotazioneAdmin> {
   // *** Dichiarazione variabili ***
   late String id;
   String email;
@@ -41,7 +46,7 @@ class _PannelloNomeVotazioneAdminState extends State<PannelloNomeVotazioneAdmin>
     super.initState();
   }
 
-  // Widget di costruzione della schermata del pannello admin
+  // Widget di costruzione della schermata del pannello
   @override
   Widget build(BuildContext context) {
     // Impedisco di tornare alla schermata precedente
@@ -138,6 +143,7 @@ class _PannelloNomeVotazioneAdminState extends State<PannelloNomeVotazioneAdmin>
                                                 if (value!.isEmpty) {
                                                   return 'Inserire nome votazione';
                                                 }
+                                                return null;
                                               },
                                               style:
                                                   const TextStyle(fontSize: 20),
@@ -180,8 +186,11 @@ class _PannelloNomeVotazioneAdminState extends State<PannelloNomeVotazioneAdmin>
                                                 votazioneController.text
                                           });
                                         }
-                                        if (votazioneController.text.length > 0) {
-                                          await startElection(votazioneController.text, ethClient!);
+                                        if (votazioneController
+                                            .text.isNotEmpty) {
+                                          await startElection(
+                                              votazioneController.text,
+                                              ethClient!);
 
                                           Fluttertoast.showToast(
                                             msg: "Votazione creata",
@@ -198,7 +207,12 @@ class _PannelloNomeVotazioneAdminState extends State<PannelloNomeVotazioneAdmin>
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       PannelloCandidati(
-                                                          email, ethClient: ethClient!, electionName: votazioneController.text,)));
+                                                        email,
+                                                        ethClient: ethClient!,
+                                                        electionName:
+                                                            votazioneController
+                                                                .text,
+                                                      )));
                                         }
                                       },
                                       child: const Center(

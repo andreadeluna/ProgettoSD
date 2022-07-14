@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:progettosd/schermate/login.dart';
 import 'package:progettosd/schermate/registrazione.dart';
 
-// Pagine iniziale: contiene una bottom navigation bar che consente
+// Pagina iniziale: contiene una bottom navigation bar che consente
 // di visualizzare la schermata di login oppure la schermata di registrazione
 class PaginaIniziale extends StatefulWidget {
   const PaginaIniziale({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class _PaginaInizialeState extends State<PaginaIniziale> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.deepOrange[50],
@@ -42,11 +41,11 @@ class _PaginaInizialeState extends State<PaginaIniziale> {
       body: Builder(
         builder: (context) {
           switch (indice) {
-          // Visualizzazione schermata di registrazione
+            // Visualizzazione schermata di registrazione
             case 1:
               return const Register();
 
-          // Visualizzazione schermata di login
+            // Visualizzazione schermata di login
             case 0:
             default:
               return const Login();
@@ -56,7 +55,6 @@ class _PaginaInizialeState extends State<PaginaIniziale> {
     );
   }
 }
-
 
 // Gestione bottom navigation bar
 class _CambiaStatoButton extends StatefulWidget {

@@ -120,18 +120,18 @@ class _LoginState extends State<Login> {
                                       child: Center(
                                         child: Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Padding(
                                               padding:
-                                              const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
                                                 controller: emailController,
                                                 validator: validazioneEmail,
                                                 decoration:
-                                                const InputDecoration(
+                                                    const InputDecoration(
                                                   labelText: "Email",
                                                   icon: Icon(Icons.mail),
                                                 ),
@@ -139,7 +139,7 @@ class _LoginState extends State<Login> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
@@ -147,7 +147,7 @@ class _LoginState extends State<Login> {
                                                 controller: passwordController,
                                                 validator: validazionePassword,
                                                 decoration:
-                                                const InputDecoration(
+                                                    const InputDecoration(
                                                   labelText: "Password",
                                                   icon: Icon(Icons.lock),
                                                 ),
@@ -181,8 +181,8 @@ class _LoginState extends State<Login> {
                                     _formKey.currentState!.save();
                                     await authService
                                         .signInWithEmailAndPassword(
-                                        emailController.text,
-                                        passwordController.text);
+                                            emailController.text,
+                                            passwordController.text);
 
                                     // Toast di avvenuto login
                                     Fluttertoast.showToast(
@@ -207,7 +207,7 @@ class _LoginState extends State<Login> {
                               child: Container(
                                 height: 50,
                                 margin:
-                                const EdgeInsets.symmetric(horizontal: 50),
+                                    const EdgeInsets.symmetric(horizontal: 50),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     color: Colors.deepOrange[900]),

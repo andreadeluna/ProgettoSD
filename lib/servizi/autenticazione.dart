@@ -19,9 +19,9 @@ class Autenticazione {
 
   // Servizio di Login con Firebase
   Future<User?> signInWithEmailAndPassword(
-      String email,
-      String password,
-      ) async {
+    String email,
+    String password,
+  ) async {
     final credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
 
@@ -30,9 +30,9 @@ class Autenticazione {
 
   // Servizio di registrazione con Firebase
   Future<User?> createUserWithEmailAndPassword(
-      String email,
-      String password,
-      ) async {
+    String email,
+    String password,
+  ) async {
     final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
 

@@ -4,11 +4,10 @@ import 'splashscreen.dart';
 
 // Punto di inizio dell'applicazione
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   // Inizializzazione Firebase
-  try{
+  try {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
         apiKey: "AIzaSyCRqNRhr9DUGlYKO_JjrYO5BVW3pe1lCEs",
@@ -17,16 +16,12 @@ void main() async {
         projectId: "letsvote-2407c",
       ),
     );
-  }
-  catch(e){
+  } catch (e) {
     Scaffold(
-      body: Container(
-        child: Text('$e'),
-      ),
+      body: Text('$e'),
     );
   }
 
   // Inizializzazione schermata iniziale dell'app
-  runApp(App());
-
+  runApp(const App());
 }

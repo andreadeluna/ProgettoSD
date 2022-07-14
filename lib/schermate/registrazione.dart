@@ -29,7 +29,6 @@ class _RegisterState extends State<Register> {
     // *** Dichiarazione variabili ***
     final TextEditingController nomeController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
-    final TextEditingController walletController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final authService = Provider.of<Autenticazione>(context);
 
@@ -125,15 +124,16 @@ class _RegisterState extends State<Register> {
                                       child: Center(
                                         child: Column(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Padding(
                                               padding:
-                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
+                                                  const EdgeInsets.fromLTRB(
+                                                      8.0, 0, 8.0, 5.0),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Icon(Icons.settings,
                                                       color: Colors.grey[500]),
@@ -152,22 +152,23 @@ class _RegisterState extends State<Register> {
                                                     value: tipoUtente,
                                                     onChanged: (valore) =>
                                                         setState(() {
-                                                          tipoUtente = valore;
-                                                        }),
+                                                      tipoUtente = valore;
+                                                    }),
                                                   ),
                                                 ],
                                               ),
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
+                                                  const EdgeInsets.fromLTRB(
+                                                      8.0, 0, 8.0, 5.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
                                                 controller: nomeController,
                                                 validator: validazioneNome,
                                                 decoration:
-                                                const InputDecoration(
+                                                    const InputDecoration(
                                                   labelText: "Nome",
                                                   icon: Icon(Icons.person),
                                                 ),
@@ -175,14 +176,15 @@ class _RegisterState extends State<Register> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.fromLTRB(8.0, 0, 8.0, 5.0),
+                                                  const EdgeInsets.fromLTRB(
+                                                      8.0, 0, 8.0, 5.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
                                                 controller: emailController,
                                                 validator: validazioneEmail,
                                                 decoration:
-                                                const InputDecoration(
+                                                    const InputDecoration(
                                                   labelText: "Email",
                                                   icon: Icon(Icons.mail),
                                                 ),
@@ -190,7 +192,8 @@ class _RegisterState extends State<Register> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+                                                  const EdgeInsets.fromLTRB(
+                                                      8.0, 8.0, 8.0, 8.0),
                                               child: TextFormField(
                                                 style: const TextStyle(
                                                     fontSize: 20),
@@ -198,7 +201,7 @@ class _RegisterState extends State<Register> {
                                                 controller: passwordController,
                                                 validator: validazionePassword,
                                                 decoration:
-                                                const InputDecoration(
+                                                    const InputDecoration(
                                                   labelText: "Password",
                                                   icon: Icon(Icons.lock),
                                                 ),
@@ -232,7 +235,7 @@ class _RegisterState extends State<Register> {
                                     // il database con i dati inseriti
                                     _formKey.currentState!.save();
                                     DocumentReference ref =
-                                    await db.collection('Utenti').add(
+                                        await db.collection('Utenti').add(
                                       {
                                         'Email': emailController.text,
                                         'Nome': nomeController.text,
@@ -242,8 +245,8 @@ class _RegisterState extends State<Register> {
 
                                     await authService
                                         .createUserWithEmailAndPassword(
-                                        emailController.text,
-                                        passwordController.text);
+                                            emailController.text,
+                                            passwordController.text);
 
                                     id = ref.id;
 
@@ -271,7 +274,7 @@ class _RegisterState extends State<Register> {
                               child: Container(
                                 height: 50,
                                 margin:
-                                const EdgeInsets.symmetric(horizontal: 50),
+                                    const EdgeInsets.symmetric(horizontal: 50),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     color: Colors.deepOrange[900]),
@@ -302,15 +305,15 @@ class _RegisterState extends State<Register> {
 
   // Gestione inserimento tipologia utente
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-    value: item,
-    child: Text(
-      item,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 20,
-      ),
-    ),
-  );
+        value: item,
+        child: Text(
+          item,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+      );
 }
 
 // Validazione campo di inserimento nome
@@ -334,15 +337,6 @@ String? validazioneEmail(String? formEmail) {
   // Verifica formato email
   if (!regex.hasMatch(formEmail)) {
     return "Formato indirizzo e-mail non valido";
-  }
-
-  return null;
-}
-
-// Validazione campo di inserimento wallet
-String? validazioneWallet(String? formWallet) {
-  if (formWallet == null || formWallet.isEmpty) {
-    return "Il wallet è richiesto";
   }
 
   return null;

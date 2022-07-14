@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:progettosd/modelli/user.dart';
-import 'package:progettosd/schermate/home.dart';
 import 'package:progettosd/schermate/pagina_iniziale.dart';
 import 'package:progettosd/schermate/pannello_nome_votazione_admin.dart';
 import 'package:progettosd/schermate/pannello_nome_votazione_user.dart';
 import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
+// Wrapper: se l'utente è di tipo user indirizza alla homepage,
+// se l'utente è di tipo admin indirizza al pannello di gestione
 class Wrapper extends StatelessWidget {
   Wrapper({Key? key}) : super(key: key);
 
@@ -40,22 +41,23 @@ class Wrapper extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              PannelloNomeVotazioneAdmin(user.email.toString())));
+                          builder: (context) => PannelloNomeVotazioneAdmin(
+                              user.email.toString())));
                 } else {
                   // Apre la homepage
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PannelloNomeVotazioneUser(user.email.toString())));
+                          builder: (context) => PannelloNomeVotazioneUser(
+                              user.email.toString())));
                 }
               },
             );
             // Gestione schermata
             return checkUser == 0
-                // ? PannelloAdmin(user.email.toString())
-                ? Scaffold(
-                  body: Text('Prova'),
+                // ? PannelloNomeVotazioneAdmin(user.email.toString())
+                ? const Scaffold(
+                    body: Text(''),
                   )
                 : Scaffold(
                     backgroundColor: Colors.deepOrange[700],

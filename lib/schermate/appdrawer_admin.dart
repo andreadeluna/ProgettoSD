@@ -5,13 +5,12 @@ import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
 // App Drawer Admin: visualizza il drawer per l'utente di tipo admin,
-// permette di visualizzare il profilo e gli eventi a cui l'utente è
-// iscritto e di effettuare il logout
+// permette di effettuare il logout
 class AppDrawerAdmin extends StatelessWidget {
   // *** Dichiarazione variabili ***
-  String email;
+  final String email;
 
-  AppDrawerAdmin(this.email, {Key? key}) : super(key: key);
+  const AppDrawerAdmin(this.email, {Key? key}) : super(key: key);
 
   // Definizione drawer
   @override

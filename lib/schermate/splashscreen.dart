@@ -4,6 +4,9 @@ import 'package:progettosd/schermate/wrapper.dart';
 import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
+// Schermata iniziale: visualizzazione splash screen e indirizzamento
+// alla home se l'utente è già autenticato oppure alla schermata di login
+// se l'utente non è autenticato
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
@@ -42,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 2),
-          () {
+      () {
         // Apertura schermata di autenticazione o dell'homepage
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Wrapper()));

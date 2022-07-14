@@ -3,20 +3,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:progettosd/schermate/appdrawer_admin.dart';
-import 'package:progettosd/schermate/pannello_candidati.dart';
 import 'package:progettosd/schermate/pannello_votazione.dart';
 import 'package:progettosd/servizi/funzioni.dart';
 import 'package:web3dart/web3dart.dart';
 import '../utili/costanti.dart';
 
+// Pannello inserimento nome votazione user: consente all'utente di tipo user
+// di inserire il nome della votazione e l'indirizzo del proprio wallet metamask,
+// in modo che possa essere riconosciuto e autorizzato alla votazione
 class PannelloNomeVotazioneUser extends StatefulWidget {
   // *** Dichiarazione variabili ***
-  String email;
+  final String email;
 
-  PannelloNomeVotazioneUser(this.email, {Key? key}) : super(key: key);
+  const PannelloNomeVotazioneUser(this.email, {Key? key}) : super(key: key);
 
   @override
-  _PannelloNomeVotazioneUserState createState() => _PannelloNomeVotazioneUserState(email);
+  _PannelloNomeVotazioneUserState createState() =>
+      _PannelloNomeVotazioneUserState(email);
 }
 
 // Definizione pannello admin
@@ -140,6 +143,7 @@ class _PannelloNomeVotazioneUserState extends State<PannelloNomeVotazioneUser> {
                                                 if (value!.isEmpty) {
                                                   return 'Inserire nome votazione';
                                                 }
+                                                return null;
                                               },
                                               style:
                                                   const TextStyle(fontSize: 20),
@@ -160,16 +164,17 @@ class _PannelloNomeVotazioneUserState extends State<PannelloNomeVotazioneUser> {
                                                 if (value!.isEmpty) {
                                                   return 'Inserire indirizzo metamask';
                                                 }
+                                                return null;
                                               },
                                               style:
-                                              const TextStyle(fontSize: 20),
+                                                  const TextStyle(fontSize: 20),
                                               controller: walletController,
                                               decoration: const InputDecoration(
                                                   filled: true,
                                                   labelText:
-                                                  "Inserisci l'indirizzo metamask"),
+                                                      "Inserisci l'indirizzo metamask"),
                                               onSaved: (value) =>
-                                              valoreCampo = value!,
+                                                  valoreCampo = value!,
                                             ),
                                           ),
                                         ],
@@ -193,10 +198,11 @@ class _PannelloNomeVotazioneUserState extends State<PannelloNomeVotazioneUser> {
                                     ),
                                     child: GestureDetector(
                                       onTap: () async {
-
-                                        if (votazioneController.text.length > 0) {
-
-                                          await authorizeVoter(walletController.text, ethClient!);
+                                        if (votazioneController
+                                            .text.isNotEmpty) {
+                                          await authorizeVoter(
+                                              walletController.text,
+                                              ethClient!);
 
                                           Fluttertoast.showToast(
                                             msg: "Elettore autorizzato",
@@ -213,7 +219,12 @@ class _PannelloNomeVotazioneUserState extends State<PannelloNomeVotazioneUser> {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       PannelloVotazione(
-                                                          email, ethClient: ethClient!, electionName: votazioneController.text,)));
+                                                        email,
+                                                        ethClient: ethClient!,
+                                                        electionName:
+                                                            votazioneController
+                                                                .text,
+                                                      )));
                                         }
                                       },
                                       child: const Center(

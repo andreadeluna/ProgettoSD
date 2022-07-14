@@ -5,20 +5,21 @@ import 'package:progettosd/schermate/appdrawer_admin.dart';
 import 'package:progettosd/servizi/funzioni.dart';
 import 'package:web3dart/web3dart.dart';
 
-// Pannello admin: permette di visualizzare gli eventi creati, visualizzarne
-// i relativi iscritti, eliminarli e crearne di nuovi
+// Pannello admin: permette di visualizzare i candidati presenti, visualizzarne
+// i relativi voti, e crearne di nuovi
 class PannelloCandidati extends StatefulWidget {
   // *** Dichiarazione variabili ***
-  String email;
+  final String email;
   final Web3Client ethClient;
   final String electionName;
 
-  PannelloCandidati(this.email,
+  const PannelloCandidati(this.email,
       {Key? key, required this.ethClient, required this.electionName})
       : super(key: key);
 
   @override
-  _PannelloCandidatiState createState() => _PannelloCandidatiState(email, ethClient);
+  _PannelloCandidatiState createState() =>
+      _PannelloCandidatiState(email, ethClient);
 }
 
 // Definizione pannello admin
@@ -121,7 +122,7 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                                             builder: (context, snapshot) {
                                               if (snapshot.connectionState ==
                                                   ConnectionState.waiting) {
-                                                return Center(
+                                                return const Center(
                                                   child:
                                                       CircularProgressIndicator(),
                                                 );
@@ -168,12 +169,12 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        SizedBox(height: 15),
+                                        const SizedBox(height: 15),
                                       ],
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 Container(
                                   padding: const EdgeInsets.all(10),
                                   child: const Text(
@@ -201,58 +202,62 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
                                             FutureBuilder<List>(
                                                 future: candidateInfo(
                                                     i, widget.ethClient),
-                                                builder:
-                                                    (context, candidatesnapshot) {
+                                                builder: (context,
+                                                    candidatesnapshot) {
                                                   if (candidatesnapshot
                                                           .connectionState ==
                                                       ConnectionState.waiting) {
                                                     return const Center(
-                                                      child: CircularProgressIndicator(),
+                                                      child:
+                                                          CircularProgressIndicator(),
                                                     );
-                                                  } else if(snapshot.data![0].toInt() == 0){
+                                                  } else if (snapshot.data![0]
+                                                          .toInt() ==
+                                                      0) {
                                                     return Padding(
                                                       padding:
-                                                      const EdgeInsets.all(
-                                                          10),
+                                                          const EdgeInsets.all(
+                                                              10),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: const [
                                                           Padding(
                                                             padding:
-                                                            EdgeInsets.all(
-                                                                10),
+                                                                EdgeInsets.all(
+                                                                    10),
                                                             child: Text(
                                                               'Non sono presenti candidati 😢',
                                                               style: TextStyle(
                                                                   fontSize: 21),
-                                                              textAlign: TextAlign
-                                                                  .center,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
                                                             ),
                                                           ),
                                                         ],
                                                       ),
                                                     );
-                                                  }
-                                                  else {
+                                                  } else {
                                                     return ListTile(
                                                       title: Text(
                                                         '${i + 1}: ' +
                                                             candidatesnapshot
                                                                 .data![0][0]
                                                                 .toString(),
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontSize: 25,
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                       subtitle: Text(
                                                         'Voti: ' +
                                                             candidatesnapshot
                                                                 .data![0][3]
                                                                 .toString(),
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontSize: 20,
                                                         ),
                                                       ),
@@ -280,13 +285,13 @@ class _PannelloCandidatiState extends State<PannelloCandidati> {
     );
   }
 
+  // Aggiorna la lista dei candidati
   Future _refresh() async {
-
     await Future.delayed(
-      Duration(seconds: 0),
+      const Duration(seconds: 0),
     );
 
-    setState((){});
+    setState(() {});
   }
 }
 
@@ -313,7 +318,6 @@ class _FloatButtonState extends State<FloatButton> {
 
   _FloatButtonState(this.ethClient);
 
-
   // Widget di costruzione del floating button e della bottom sheet
   @override
   Widget build(BuildContext context) {
@@ -322,7 +326,6 @@ class _FloatButtonState extends State<FloatButton> {
         TextEditingController();
     final TextEditingController descrizioneController = TextEditingController();
     final TextEditingController partitoController = TextEditingController();
-
 
     return mostraPulsante
         ? FloatingActionButton(
@@ -429,6 +432,7 @@ class _FloatButtonState extends State<FloatButton> {
                                                         if (value!.isEmpty) {
                                                           return 'Inserire nome candidato';
                                                         }
+                                                        return null;
                                                       },
                                                       decoration:
                                                           const InputDecoration(
@@ -454,6 +458,7 @@ class _FloatButtonState extends State<FloatButton> {
                                                         if (value!.isEmpty) {
                                                           return 'Inserire il partito';
                                                         }
+                                                        return null;
                                                       },
                                                       decoration:
                                                           const InputDecoration(
@@ -478,6 +483,7 @@ class _FloatButtonState extends State<FloatButton> {
                                                         if (value!.isEmpty) {
                                                           return 'Inserire la descrizione';
                                                         }
+                                                        return null;
                                                       },
                                                       decoration:
                                                           const InputDecoration(
@@ -499,7 +505,7 @@ class _FloatButtonState extends State<FloatButton> {
                                     ),
                                   ),
                                   const SizedBox(height: 40),
-                                  // Creazione nuovo evento
+                                  // Creazione nuovo candidato
                                   GestureDetector(
                                     onTap: () async {
                                       if (_formKey.currentState!.validate()) {
@@ -530,7 +536,11 @@ class _FloatButtonState extends State<FloatButton> {
                                           id = ref.id;
                                         });
 
-                                        addCandidate(nomeCandidatoController.text, partitoController.text, descrizioneController.text, widget.ethClient);
+                                        addCandidate(
+                                            nomeCandidatoController.text,
+                                            partitoController.text,
+                                            descrizioneController.text,
+                                            widget.ethClient);
 
                                         Fluttertoast.showToast(
                                           msg: "Candidato aggiunto",

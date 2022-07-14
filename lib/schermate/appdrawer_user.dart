@@ -5,13 +5,12 @@ import 'package:progettosd/servizi/autenticazione.dart';
 import 'package:provider/provider.dart';
 
 // App Drawer User: visualizza il drawer per l'utente di tipo user,
-// permette di visualizzare il profilo e gli eventi a cui l'utente è
-// iscritto e di effettuare il logout
+// permette di effettuare il logout
 class AppDrawerUser extends StatelessWidget {
   // *** Dichiarazione variabili ***
-  String email;
+  final String email;
 
-  AppDrawerUser(this.email, {Key? key}) : super(key: key);
+  const AppDrawerUser(this.email, {Key? key}) : super(key: key);
 
   // Definizione drawer
   @override
