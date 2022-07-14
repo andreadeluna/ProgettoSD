@@ -18,8 +18,7 @@ Terzo appello, Sessione Estiva 2021/2022
 Il progetto consiste nell'implementazione di un'applicazione decentrallizzata (DApp) di votazione, che esegue le funzioni di uno smart contract attraverso un'interfaccia utente. Si tratta dunque di un'applicazione il cui funzionamento non dipende da punti di controllo o da server centrali, ma che funziona sulla base di una rete decentralizzata, in cui gli utenti hanno il pieno controllo del suo funzionamento e possono accedere ai diversi servizi in modo sicuro.  
 In particolare, la differenza principale tra un'applicazione di questo tipo e quelle centralizzate è che le DApp girano su una blockchain o su un network di computer peer-to-peer (P2P), invece che su un singolo computer.  
 L'accettazione o meno delle operazioni effettuate dagli utenti della DApp è subordinata alla programmazione dello "smart contract", che cerca di garantire che tutti i partecipanti agiscano nel quadro da esso specificato.  
-Anche l'applicazione di voto in questione quindi, può operare in modo autonomo grazie all'uso di uno smart contract, ovvero codice scritto sulla blockchain
-e che quindi una volta implementato non può essere modificato in modo semplice.  
+Anche l'applicazione di voto in questione quindi, può operare in modo autonomo grazie all'uso di uno smart contract, ovvero codice visibile a tutti, che non può essere modificato in quanto presente sulla tecnologia blockchain. 
 Nello smart contract realizzato per l'applicazione sono presenti:
 * Un amministratore (proprietario dell'elezione), che ha il compito di distribuire il contratto, autorizzare gli elettori a votare ed inserisce nuovi candidati alla lista.
 * Degli elettori, che possono votare un candidato una volta che il contratto è stato distribuito.
