@@ -278,7 +278,7 @@ Nel caso in cui l'utente sia di tipo User, verrà indirizzato alla schermata Pan
 A seguito dell'inserimento del nome della votazione e dell'indirizzo del proprio wallet di Metamask, l'utente Elettore verrà indirizzato alla schermata di voto, la quale mediante uno StreamBuilder permetterà di visualizzare i candidati presenti alla votazione, comprensivi di nome, partito di appartenenza e descrizione.
 <div align="center">
   <row>
-    <a><img src='https://user-images.githubusercontent.com/44511696/177225602-36d796f6-09b6-4def-9902-830e5311084d.png' height='300' alt='icon'/></a>
+    <a><img src='https://user-images.githubusercontent.com/44511696/179093492-e7ea872a-de8d-4143-b633-6240b73d32bf.png' height='300' alt='icon'/></a>
   </row>
 </div>
 
@@ -289,11 +289,20 @@ All'interno delle card contenenti le informazioni degli eventi sarà presente un
   </row>
 </div>
 
-L'avvenuta votazione verrà notificata mediante la visualizzazione di un toast. Nel caso in cui l'utente 
+L'avvenuta votazione verrà notificata mediante la visualizzazione di un messaggio di alert e di un toast. Nel caso in cui l'utente non abbia ancora espresso un voto, vedrà un messaggio di avvenuta votazione e di conferma della corretta acquisizione del voto. Nel caso in cui invece l'utente abbia già votato vedrà un messaggio di rifiuto della votazione. 
 <div align="center">
   <row>
-    <a><img src='https://user-images.githubusercontent.com/44511696/177227313-cf37de5d-fd30-484a-8f97-2514320985d0.png' height='300' alt='icon' hspace='30'/></a>
-    <a><img src='https://user-images.githubusercontent.com/44511696/177227332-c393f03d-dce5-47a7-8daf-2a1b0bcaa16b.png' height='300' alt='icon'/></a>
+    <a><img src='https://user-images.githubusercontent.com/44511696/179092718-d3ef54aa-bf7d-4f2f-842f-34855bbbf8da.png' height='300' alt='icon' hspace='30'/></a>
+    <a><img src='https://user-images.githubusercontent.com/44511696/179093063-a66e5172-4963-49c9-9538-eee38aa5bffa.png' height='300' alt='icon'/></a>
+  </row>
+</div>
+
+
+### App Drawer ###
+Rispettivamente nelle schermate Home e Pannello Admin, verrà visualizzato un Drawer che permetterà di effettuare il logout dall'app.
+<div align="center">
+  <row>
+    <a><img src='https://user-images.githubusercontent.com/44511696/179095004-3a3c02cd-419d-43fb-89f7-5eb891a69106.png' height='300' alt='icon'/></a>
   </row>
 </div>
 
